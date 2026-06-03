@@ -24,13 +24,6 @@
 
 ---
 
-## 📸 Workspace Preview
-*Here is a preview of the premium, obsidian-dark visual editor and the AI generation canvas:*
-
-![AntiGravity Studio Workspace Preview](workspace.png)
-
----
-
 ## 🖤 Overview
 **AntiGravity Studio** is an elite, futuristic, obsidian-dark landing page design platform and AI code generator. It empowers developers and designers to generate premium, fully responsive web layouts and custom visual components using dynamic design prompts and micro-interactive styling panels in seconds.
 
@@ -68,9 +61,11 @@ If the Google Gemini API hits rate limits or safety filters, the system compiles
 * **Luxury Watches & E-commerce:** Interactive pre-order countdown timer, watch movement details, and newsletter forms.
 
 ---
+---
 
 ## 📁 Project Structure
 
+```text
 ├── src/
 │   ├── app/                    # Next.js App Router
 │   │   ├── api/                # Backend API Routes
@@ -117,4 +112,4 @@ Run the command: npx tsc --noEmit
 > **Styling System:** Fluid Glassmorphism & Obsidian Dark Theme  
 
 ---
-<p align="center">Crafted with 💜 by the AntiGravity Team.</p>
+<p align="center">Crafted with 💜 by the Gaurav Kumar.</p>
