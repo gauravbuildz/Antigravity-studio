@@ -61,11 +61,9 @@ If the Google Gemini API hits rate limits or safety filters, the system compiles
 * **Luxury Watches & E-commerce:** Interactive pre-order countdown timer, watch movement details, and newsletter forms.
 
 ---
----
 
 ## 📁 Project Structure
 
-```text
 ├── src/
 │   ├── app/                    # Next.js App Router
 │   │   ├── api/                # Backend API Routes
