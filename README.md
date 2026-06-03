@@ -64,6 +64,8 @@ If the Google Gemini API hits rate limits or safety filters, the system compiles
 
 ## 📁 Project Structure
 
+```text
+
 ├── src/
 │   ├── app/                    # Next.js App Router
 │   │   ├── api/                # Backend API Routes
@@ -80,6 +82,8 @@ If the Google Gemini API hits rate limits or safety filters, the system compiles
 ├── AGENTS.md                   # AI Agents workflows and system prompts
 ├── next.config.ts              # Next.js Framework Configurations
 ├── package.json                # Project Dependencies & Scripts
+
+```
 
 ---
 
