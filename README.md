@@ -373,6 +373,6 @@ Built with 💜 using Next.js, Tailwind CSS, TypeScript, and Google Gemini AI.
 
 <div align="center">
 
-### ⭐ If you like the project, consider giving it a star!
+
 
 </div>
