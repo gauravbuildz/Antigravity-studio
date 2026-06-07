@@ -1,6 +1,8 @@
+<div align="center">
+
 # 🌌 AntiGravity Studio
 
-> AI-Powered No-Code Website Builder with Real-Time Visual Editing
+### AI-Powered No-Code Website Builder with Real-Time Visual Editing
 
 ![Next.js](https://img.shields.io/badge/Next.js-15-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-Blue)
@@ -8,273 +10,263 @@
 ![Gemini AI](https://img.shields.io/badge/Google-Gemini_AI-orange)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
----
+<br>
 
-## 🔗 Live Demo
-
-🚀 Experience AntiGravity Studio Live:
-
+🚀 **Live Demo**  
 https://antigravity-studio-gules.vercel.app/workspace
 
----
+🎥 **Demo Video**  
+https://youtu.be/YDpMD4-2H7k
 
-## 🖤 Overview
-
-AntiGravity Studio is an AI-powered website builder that enables developers, students, creators, and entrepreneurs to generate stunning, responsive landing pages using natural language prompts.
-
-Powered by Google Gemini AI, the platform transforms ideas into fully styled Tailwind CSS layouts within seconds while providing a real-time visual editing experience.
-
-Users can generate, customize, preview, edit, and save websites without manually writing frontend code.
+</div>
 
 ---
 
-## 🌟 Why AntiGravity Studio?
+# 🖤 Overview
 
-Building modern websites often requires frontend expertise, design skills, and significant development time.
+AntiGravity Studio is an AI-powered no-code website builder that transforms natural language prompts into modern, responsive websites.
 
-AntiGravity Studio solves this problem by combining AI-powered website generation with real-time visual editing.
+Built using **Next.js**, **Tailwind CSS**, **TypeScript**, and **Google Gemini AI**, the platform allows users to generate, edit, customize, and preview complete landing pages in real time without writing frontend code.
 
-The platform enables users to:
-
-* Transform ideas into websites using natural language
-* Generate responsive layouts instantly
-* Customize designs without coding
-* Edit content directly inside the preview
-* Save and continue projects anytime
-* Accelerate prototyping and MVP development
-
-Whether you're a developer, student, startup founder, or designer, AntiGravity Studio helps turn concepts into production-ready interfaces faster.
+Whether you're a student, developer, startup founder, or designer, AntiGravity Studio helps turn ideas into production-ready interfaces within seconds.
 
 ---
 
-## ✨ Features
+# 🌟 Why AntiGravity Studio?
+
+Creating beautiful websites usually requires:
+
+- Design expertise
+- Frontend development skills
+- Significant development time
+
+AntiGravity Studio eliminates these barriers through AI-powered website generation and visual editing.
+
+### Users can:
+
+✅ Generate websites using natural language
+
+✅ Edit content directly in the preview
+
+✅ Customize styles without coding
+
+✅ Save and restore projects
+
+✅ Build prototypes faster
+
+✅ Accelerate MVP development
+
+---
+
+# ✨ Features
 
 ### 🤖 AI Website Generation
 
-Generate complete landing pages using natural language prompts powered by Google Gemini AI.
+Generate complete websites from simple prompts using Google Gemini AI.
 
 ### 🎙️ Voice Prompt Support
 
-Generate websites using voice commands.
+Create websites through voice commands.
 
-### 🎨 Visual Editor
+### 🎨 Visual Customization
 
-Customize generated websites with:
+Modify:
 
-* Font Controls
-* Accent Colors
-* Theme Switching
-* Border Radius
-* Padding Controls
-* Gap Controls
+- Colors
+- Fonts
+- Border Radius
+- Layout Spacing
+- Padding
+- Themes
 
-### ✏️ Inline Content Editing
+### ✏️ Live Editing
 
 Edit website content directly inside the preview canvas.
 
-### 🔄 Undo / Redo System
+### 🔄 Undo / Redo
 
 Track and restore design changes instantly.
 
 ### 💾 Saved Projects
 
-Store and reopen previously generated projects.
+Store and continue working on previous projects.
 
-### 📱 Responsive Preview
+### 📱 Responsive Layouts
 
-Preview websites across:
+Desktop, Tablet, and Mobile optimized designs.
 
-* Desktop
-* Tablet
-* Mobile
+### 🌙 Premium Dark UI
 
-### 🌙 Obsidian Dark UI
-
-Modern developer-focused interface inspired by Vercel and Linear.
+Modern workspace inspired by Vercel and Linear.
 
 ---
 
-## 📸 Screenshots
+# 📸 Screenshots
 
-### Login Page
+## 🔐 Login Page
 
 ![Login Page](screenshots/login-page.png)
 
-### Workspace Dashboard
+---
+
+## 🛠️ Workspace Dashboard
 
 ![Workspace Dashboard](screenshots/workspace-dashboard.png)
 
-### Generated Website Preview
+---
+
+## 🚀 Generated Website Preview
 
 ![Generated Website](screenshots/generated-website.png)
 
 ---
 
-## 🔄 Application Workflow
+# 🔄 Application Workflow
 
-### Step 1 — Authentication
+```text
+User Login
+     ↓
+Prompt / Voice Input
+     ↓
+Google Gemini AI
+     ↓
+Layout Generation
+     ↓
+Live Preview
+     ↓
+Visual Editing
+     ↓
+Undo / Redo
+     ↓
+Project Saving
+     ↓
+Responsive Website Output
+```
 
-User signs up or logs into AntiGravity Studio.
+### Workflow Explanation
 
-↓
+### 1️⃣ Authentication
 
-### Step 2 — Prompt Input
+Users sign up or log in.
 
-User enters a website description using text or voice input.
+### 2️⃣ Prompt Input
 
-Examples:
+Users describe the website they want.
 
-* SaaS Dashboard
-* AI Startup Landing Page
-* Fitness Website
-* Luxury Watch Store
-* Portfolio Website
+Example:
 
-↓
+```text
+Create a modern AI startup landing page
+```
 
-### Step 3 — AI Processing
+### 3️⃣ AI Processing
 
-Google Gemini AI analyzes:
+Gemini AI analyzes:
 
-* Website Structure
-* Content Sections
-* UI Components
-* Design Patterns
-* Tailwind Styling
+- Layout structure
+- Website sections
+- Content hierarchy
+- Design patterns
 
-↓
+### 4️⃣ Website Generation
 
-### Step 4 — Layout Generation
+A responsive landing page is generated automatically.
 
-The platform generates a responsive website layout.
-
-↓
-
-### Step 5 — Live Preview
-
-Generated website appears instantly inside the preview canvas.
-
-↓
-
-### Step 6 — Visual Editing
+### 5️⃣ Live Editing
 
 Users can modify:
 
-* Fonts
-* Colors
-* Padding
-* Radius
-* Layout Spacing
+- Text
+- Colors
+- Layout spacing
+- Fonts
+- Theme settings
 
-↓
+### 6️⃣ Save Progress
 
-### Step 7 — Inline Editing
-
-Users can directly edit website content inside the preview.
-
-↓
-
-### Step 8 — History Tracking
-
-Every change is stored for Undo / Redo functionality.
-
-↓
-
-### Step 9 — Project Saving
-
-Projects can be saved and restored later.
-
-↓
-
-### Step 10 — Final Output
-
-Responsive production-ready website ready for deployment.
+Projects are stored and can be reopened later.
 
 ---
 
-## 🏗️ System Architecture
+# 🏗️ System Architecture
 
+```text
 User
-
-↓
-
+ │
+ ▼
 Prompt / Voice Input
-
-↓
-
+ │
+ ▼
 Google Gemini AI
-
-↓
-
-Layout Generation Engine
-
-↓
-
+ │
+ ▼
+Generation Engine
+ │
+ ▼
 Live Preview Canvas
-
-↓
-
+ │
+ ▼
 Visual Editor
-
-↓
-
-Undo / Redo Manager
-
-↓
-
+ │
+ ▼
+History Manager
+ │
+ ▼
 Project Storage
-
-↓
-
+ │
+ ▼
 Responsive Website Output
+```
 
 ---
 
-## 🚀 Future Roadmap
+# 🧠 Smart AI Framework
 
-* Export generated websites as code
-* One-click deployment
-* Multi-page website generation
-* Team collaboration support
-* Figma-to-Website generation
-* AI design suggestions
-* Template marketplace
+## Dynamic Prompt Processing
 
----
+User prompts are converted into structured website layouts.
 
-## 🧠 Smart AI Framework
+## Intelligent Section Generation
 
-### Dynamic Prompt Processing
+The AI automatically creates:
 
-The system converts user prompts into structured website layouts using Google Gemini AI.
+- Hero Sections
+- Features Sections
+- Pricing Tables
+- Testimonials
+- FAQs
+- Contact Sections
+- Footers
 
-### Intelligent Layout Generation
+## Smart Fallback System
 
-AI automatically generates:
-
-* Hero Sections
-* Features Sections
-* Pricing Blocks
-* Testimonials
-* Call-To-Action Components
-
-### Smart Fallback System
-
-If AI generation becomes unavailable, category-based layouts are generated automatically.
+When AI generation is unavailable, category-specific templates are generated automatically.
 
 Supported Categories:
 
-* SaaS
-* Analytics
-* Portfolio
-* Fitness
-* Wellness
-* Luxury Products
-* E-commerce
+- SaaS
+- Analytics
+- Portfolio
+- Fitness
+- Wellness
+- Luxury Products
+- E-commerce
 
 ---
 
-## 📂 Project Structure
+# 🚀 Future Roadmap
+
+- Export websites as code
+- One-click deployment
+- Multi-page website generation
+- Team collaboration
+- Figma-to-Website support
+- AI design suggestions
+- Template marketplace
+
+---
+
+# 📂 Project Structure
 
 ```text
 src/
@@ -300,39 +292,39 @@ next.config.ts
 
 ---
 
-## 🛠️ Tech Stack
+# 🛠️ Tech Stack
 
 ### Frontend
 
-* React
-* Next.js
-* TypeScript
-* Tailwind CSS
+- React
+- Next.js
+- TypeScript
+- Tailwind CSS
 
 ### AI
 
-* Google Gemini API
+- Google Gemini API
 
 ### Backend
 
-* Next.js API Routes
+- Next.js API Routes
 
-### Storage
+### State Management
 
-* Local Storage
-* History Management
+- Local Storage
+- Undo / Redo History
 
 ---
 
-## ⚙️ Local Setup
+# ⚙️ Local Setup
 
-### Install Dependencies
+## Install Dependencies
 
 ```bash
 npm install
 ```
 
-### Configure Environment Variables
+## Configure Environment Variables
 
 Create `.env.local`
 
@@ -341,7 +333,7 @@ GEMINI_API_KEY=your_api_key
 JWT_SECRET=your_secret_key
 ```
 
-### Run Development Server
+## Run Development Server
 
 ```bash
 npm run dev
@@ -353,7 +345,7 @@ Open:
 http://localhost:3001
 ```
 
-### Type Checking
+## Type Checking
 
 ```bash
 npx tsc --noEmit
@@ -361,19 +353,26 @@ npx tsc --noEmit
 
 ---
 
-## 🎥 Demo Video
+# 🎥 Demo Video
 
-Demo Video Link:
+Watch the full project demo:
 
 https://youtu.be/YDpMD4-2H7k
 
 ---
 
-## 👨‍💻 Author
+# 👨‍💻 Author
 
-**Gaurav Kumar**
+### Gaurav Kumar
 
-* GitHub: https://github.com/gauravbuildz
-* Project: AntiGravity Studio
+GitHub: https://github.com/gauravbuildz
 
 Built with 💜 using Next.js, Tailwind CSS, TypeScript, and Google Gemini AI.
+
+---
+
+<div align="center">
+
+### ⭐ If you like the project, consider giving it a star!
+
+</div>
