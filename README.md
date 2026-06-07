@@ -1,117 +1,379 @@
 # 🌌 AntiGravity Studio
 
-<p align="center">
-  <a href="https://antigravity-studio-gules.vercel.app/workspace" target="_blank">
-    <img src="https://img.shields.io/badge/%E2%9A%A1%20Live%20Demo-Visit%20Workspace-6366F1?style=for-the-badge&logo=vercel" alt="Live Demo" />
-  </a>
-  <img src="https://img.shields.io/badge/UI-Vercel%20%2F%20Linear%20Inspired-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="UI Style" />
-  <img src="https://img.shields.io/badge/Styling-Tailwind%20CSS-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind" />
-  <img src="https://img.shields.io/badge/AI-Google%20Gemini-black?style=for-the-badge&logo=google-gemini&logoColor=blue" alt="Gemini" />
-</p>
+> AI-Powered No-Code Website Builder with Real-Time Visual Editing
+
+![Next.js](https://img.shields.io/badge/Next.js-15-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-Blue)
+![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-38BDF8)
+![Gemini AI](https://img.shields.io/badge/Google-Gemini_AI-orange)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 ---
 
-## 🔗 Live Application URL
-🚀 **Experience the future of AI web design live here:**  
-👉 **[https://antigravity-studio-gules.vercel.app/workspace](https://antigravity-studio-gules.vercel.app/workspace)**
+## 🔗 Live Demo
 
----
+🚀 Experience AntiGravity Studio Live:
 
-## 🛠️ How to Access the Builder
-1. Click on the **[Live Demo](https://antigravity-studio-gules.vercel.app/workspace)** link.
-2. Scroll down to the **Workspace Section** (or navigate directly to `/workspace`).
-3. Enter your prompt and watch the AI compile the layout in real-time!
+https://antigravity-studio-gules.vercel.app/workspace
 
 ---
 
 ## 🖤 Overview
-**AntiGravity Studio** is an elite, futuristic, obsidian-dark landing page design platform and AI code generator. It empowers developers and designers to generate premium, fully responsive web layouts and custom visual components using dynamic design prompts and micro-interactive styling panels in seconds.
+
+AntiGravity Studio is an AI-powered website builder that enables developers, students, creators, and entrepreneurs to generate stunning, responsive landing pages using natural language prompts.
+
+Powered by Google Gemini AI, the platform transforms ideas into fully styled Tailwind CSS layouts within seconds while providing a real-time visual editing experience.
+
+Users can generate, customize, preview, edit, and save websites without manually writing frontend code.
 
 ---
 
-## 🚀 Key Features
-* **Elite Developer Tool Aesthetic:** A gorgeous, Vercel/Linear-inspired workspace UI featuring a glassmorphic top navigation dropdown, custom purple brand glowing sidebar actions, and vertical baseline-aligned control switches.
-* **Obsidian-Dark AI Builder:** Instantly generates elite landing pages styled strictly using Tailwind CSS utility classes and modern layout patterns.
-* **Visual Editor Canvas:** Allows users to preview layouts instantly and double-click/click text inline to edit copy directly. All edits sync back to the state in real-time.
-* **Micro-Interactive Settings:** Real-time control panels to adjust padding, gap spacing, corner radius, fonts, light/dark modes, and color accents effortlessly.
-* **Undo/Redo History:** Preserves layout states during creation and styling cycles so builders can safely experiment without losing their progress.
-* **Saved Projects Drawer:** Keeps track of generated historical drafts in localStorage so users can restore and continue refining layouts anytime.
+## 🌟 Why AntiGravity Studio?
+
+Building modern websites often requires frontend expertise, design skills, and significant development time.
+
+AntiGravity Studio solves this problem by combining AI-powered website generation with real-time visual editing.
+
+The platform enables users to:
+
+* Transform ideas into websites using natural language
+* Generate responsive layouts instantly
+* Customize designs without coding
+* Edit content directly inside the preview
+* Save and continue projects anytime
+* Accelerate prototyping and MVP development
+
+Whether you're a developer, student, startup founder, or designer, AntiGravity Studio helps turn concepts into production-ready interfaces faster.
 
 ---
 
-## 📸 Photographic Image Logic & Fail-safe Framework
+## ✨ Features
 
-### 1. Dynamic Server-Side Keyword Sanitization
-In the backend code, the system maps prompt themes into rich comma-separated keywords and structures them into valid production Unsplash Featured queries: `https://images.unsplash.com/featured/?<KEYWORDS>`. Legacy placeholders or abstract gradients are automatically converted into high-resolution live photograph requests.
+### 🤖 AI Website Generation
 
-### 2. Client-Side Category Fail-safes
-When the preview iframe encounters a broken URL, a global capturing error event listener inspects the failed node's src and alt properties to map keywords to specific stock photos in real-time:
-* **Finance / Crypto:** Elegant blockchain and trading setups.
-* **Technology / AI:** Hardware, code editor, and clean software interfaces.
-* **Nature / Landscapes:** Green foliage and forests.
-* **Lifestyle / Fitness:** Workout and luxury model photographs.
-* **Luxury Watches:** Close-up craft detail and luxury timepieces.
-* **Default:** A premium dark abstract texture instead of simple gradient blocks.
+Generate complete landing pages using natural language prompts powered by Google Gemini AI.
 
-### 3. Smart Offline Fallbacks
-If the Google Gemini API hits rate limits or safety filters, the system compiles a standalone offline layout matching the user's category context:
-* **SaaS & Analytics:** Metric grids and dashboard layouts.
-* **Creative Portfolio:** Minimalist photography and service showcases.
-* **Fitness & Wellness:** Program lists, stat trackers, and coach profiles.
-* **Luxury Watches & E-commerce:** Interactive pre-order countdown timer, watch movement details, and newsletter forms.
+### 🎙️ Voice Prompt Support
+
+Generate websites using voice commands.
+
+### 🎨 Visual Editor
+
+Customize generated websites with:
+
+* Font Controls
+* Accent Colors
+* Theme Switching
+* Border Radius
+* Padding Controls
+* Gap Controls
+
+### ✏️ Inline Content Editing
+
+Edit website content directly inside the preview canvas.
+
+### 🔄 Undo / Redo System
+
+Track and restore design changes instantly.
+
+### 💾 Saved Projects
+
+Store and reopen previously generated projects.
+
+### 📱 Responsive Preview
+
+Preview websites across:
+
+* Desktop
+* Tablet
+* Mobile
+
+### 🌙 Obsidian Dark UI
+
+Modern developer-focused interface inspired by Vercel and Linear.
 
 ---
 
-## 📁 Project Structure
+## 📸 Screenshots
+
+### Login Page
+
+![Login Page](screenshots/login-page.png)
+
+### Workspace Dashboard
+
+![Workspace Dashboard](screenshots/workspace-dashboard.png)
+
+### Generated Website Preview
+
+![Generated Website](screenshots/generated-website.png)
+
+---
+
+## 🔄 Application Workflow
+
+### Step 1 — Authentication
+
+User signs up or logs into AntiGravity Studio.
+
+↓
+
+### Step 2 — Prompt Input
+
+User enters a website description using text or voice input.
+
+Examples:
+
+* SaaS Dashboard
+* AI Startup Landing Page
+* Fitness Website
+* Luxury Watch Store
+* Portfolio Website
+
+↓
+
+### Step 3 — AI Processing
+
+Google Gemini AI analyzes:
+
+* Website Structure
+* Content Sections
+* UI Components
+* Design Patterns
+* Tailwind Styling
+
+↓
+
+### Step 4 — Layout Generation
+
+The platform generates a responsive website layout.
+
+↓
+
+### Step 5 — Live Preview
+
+Generated website appears instantly inside the preview canvas.
+
+↓
+
+### Step 6 — Visual Editing
+
+Users can modify:
+
+* Fonts
+* Colors
+* Padding
+* Radius
+* Layout Spacing
+
+↓
+
+### Step 7 — Inline Editing
+
+Users can directly edit website content inside the preview.
+
+↓
+
+### Step 8 — History Tracking
+
+Every change is stored for Undo / Redo functionality.
+
+↓
+
+### Step 9 — Project Saving
+
+Projects can be saved and restored later.
+
+↓
+
+### Step 10 — Final Output
+
+Responsive production-ready website ready for deployment.
+
+---
+
+## 🏗️ System Architecture
+
+User
+
+↓
+
+Prompt / Voice Input
+
+↓
+
+Google Gemini AI
+
+↓
+
+Layout Generation Engine
+
+↓
+
+Live Preview Canvas
+
+↓
+
+Visual Editor
+
+↓
+
+Undo / Redo Manager
+
+↓
+
+Project Storage
+
+↓
+
+Responsive Website Output
+
+---
+
+## 🚀 Future Roadmap
+
+* Export generated websites as code
+* One-click deployment
+* Multi-page website generation
+* Team collaboration support
+* Figma-to-Website generation
+* AI design suggestions
+* Template marketplace
+
+---
+
+## 🧠 Smart AI Framework
+
+### Dynamic Prompt Processing
+
+The system converts user prompts into structured website layouts using Google Gemini AI.
+
+### Intelligent Layout Generation
+
+AI automatically generates:
+
+* Hero Sections
+* Features Sections
+* Pricing Blocks
+* Testimonials
+* Call-To-Action Components
+
+### Smart Fallback System
+
+If AI generation becomes unavailable, category-based layouts are generated automatically.
+
+Supported Categories:
+
+* SaaS
+* Analytics
+* Portfolio
+* Fitness
+* Wellness
+* Luxury Products
+* E-commerce
+
+---
+
+## 📂 Project Structure
 
 ```text
+src/
+├── app/
+│   ├── api/
+│   │   ├── auth/
+│   │   │   ├── login/
+│   │   │   └── signup/
+│   │   └── generate-site/
+│   ├── workspace/
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+│
+├── lib/
+│   └── db.ts
 
-├── src/
-│   ├── app/                    # Next.js App Router
-│   │   ├── api/                # Backend API Routes
-│   │   │   ├── auth/
-│   │   │   │   ├── login/      # User Login Authentication (route.ts)
-│   │   │   │   └── signup/     # User Signup Authentication (route.ts)
-│   │   │   └── generate-site/  # AI Site Generation & Sanitization Engine
-│   │   ├── workspace/          # Main Obsidian-Dark Visual Builder UI
-│   │   ├── globals.css         # Tailwind & Global Styles
-│   │   ├── layout.tsx          # Root Layout with State Providers
-│   │   └── page.tsx            # Application Landing Page
-│   └── lib/
-│       └── db.ts               # Database Connection & Configuration
-├── AGENTS.md                   # AI Agents workflows and system prompts
-├── next.config.ts              # Next.js Framework Configurations
-├── package.json                # Project Dependencies & Scripts
-
+AGENTS.md
+README.md
+package.json
+next.config.ts
 ```
 
 ---
 
-## 🛠️ Setup & Local Development
+## 🛠️ Tech Stack
 
-### 1. Install Dependencies
-Run the command: npm install
+### Frontend
 
-### 2. Configure Environment Variables
-Create a .env.local file in the root directory and add your credentials:
-GEMINI_API_KEY=your_google_gemini_api_key_here
-JWT_SECRET=antigravity-studio-super-secret-key-12345
+* React
+* Next.js
+* TypeScript
+* Tailwind CSS
 
-### 3. Run Development Server
-Run the command: npm run dev
-Open http://localhost:3001 in your browser to view the application.
+### AI
 
-### 4. Codebase Compilation Check
-Run the command: npx tsc --noEmit
+* Google Gemini API
+
+### Backend
+
+* Next.js API Routes
+
+### Storage
+
+* Local Storage
+* History Management
+
+---
+
+## ⚙️ Local Setup
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Configure Environment Variables
+
+Create `.env.local`
+
+```env
+GEMINI_API_KEY=your_api_key
+JWT_SECRET=your_secret_key
+```
+
+### Run Development Server
+
+```bash
+npm run dev
+```
+
+Open:
+
+```text
+http://localhost:3001
+```
+
+### Type Checking
+
+```bash
+npx tsc --noEmit
+```
 
 ---
 
-## 🎨 Tech Stack & Architecture
-> **Frontend:** React, Next.js (App Router), Tailwind CSS  
-> **AI Engine:** Google Gemini API  
-> **Database Configuration:** Knex / Prisma Backend Support (db.ts)  
-> **State Management:** Local History Tracking with Undo/Redo  
-> **Styling System:** Fluid Glassmorphism & Obsidian Dark Theme  
+## 🎥 Demo Video
+
+Demo Video Link:
+
+(Add Your Video Link Here)
 
 ---
-<p align="center">Crafted with 💜 by the Gaurav Kumar.</p>
+
+## 👨‍💻 Author
+
+**Gaurav Kumar**
+
+* GitHub: https://github.com/gauravbuildz
+* Project: AntiGravity Studio
+
+Built with 💜 using Next.js, Tailwind CSS, TypeScript, and Google Gemini AI.
