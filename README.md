@@ -42,7 +42,7 @@ Transform natural language prompts into modern, responsive, production-ready web
 
 ---
 
-## 🚀 One-Line Pitch
+# 🚀 One-Line Pitch
 
 **AntiGravity Studio transforms ideas into fully responsive websites using AI-powered generation, voice input, and live visual editing.**
 
@@ -54,11 +54,11 @@ Transform natural language prompts into modern, responsive, production-ready web
 
 👉 https://antigravity-studio-gules.vercel.app/workspace
 
-## 🎥 Video Walkthrough
+## 🎥 Demo Video
 
 [![Watch Demo](https://img.youtube.com/vi/YDpMD4-2H7k/maxresdefault.jpg)](https://youtu.be/YDpMD4-2H7k)
 
-> Click the thumbnail above to watch the complete demo.
+> Click the thumbnail above to watch the complete demo walkthrough.
 
 ---
 
@@ -75,16 +75,16 @@ Transform natural language prompts into modern, responsive, production-ready web
 
 # 🌟 The Problem
 
-Building a modern website traditionally requires:
+Building a professional website traditionally requires:
 
-* Designing layouts
+* Designing layouts manually
 * Writing frontend code
 * Managing responsiveness
 * Styling components
 * Repeated iterations
 * Significant development time
 
-For founders, students, developers, freelancers, and creators, transforming an idea into a polished landing page can take hours or even days.
+For founders, students, developers, freelancers, and creators, transforming an idea into a polished website often takes hours or even days.
 
 ---
 
@@ -125,9 +125,9 @@ Use a dark theme and premium design.
 
 ---
 
-# 🚀 What Makes AntiGravity Studio Different?
+# 🚀 Why AntiGravity Studio?
 
-Most AI website builders stop after generation.
+Most AI website generators stop after generation.
 
 AntiGravity Studio continues the workflow with:
 
@@ -143,7 +143,7 @@ Speak your idea and instantly generate a website.
 
 Edit content directly inside the generated preview.
 
-### 🎨 Real-Time Customization
+### 🎨 Real-Time Design Customization
 
 Customize:
 
@@ -168,7 +168,37 @@ Automatically adapts across desktop, tablet, and mobile devices.
 
 ---
 
-# 🧠 How AI Powers The Experience
+# ✨ Core Features
+
+| Feature                  | Description                         |
+| ------------------------ | ----------------------------------- |
+| 🤖 AI Generation         | Generate websites from prompts      |
+| 🎙️ Voice Input          | Speak your idea naturally           |
+| ✏️ Live Editing          | Edit directly inside preview        |
+| 🎨 Design Controls       | Themes, colors, spacing, typography |
+| 🔄 Undo / Redo           | Safe experimentation                |
+| 💾 Project Saving        | Continue work anytime               |
+| 📱 Responsive Design     | Mobile-first layouts                |
+| ⚡ Fast Iteration         | Rapid refinement workflow           |
+| 🖼️ Smart Image Handling | Improved visual consistency         |
+
+---
+
+# 📸 Screenshots
+
+| Login Experience | Workspace Dashboard |
+|-----------------|---------------------|
+| ![](screenshots/login-page.png) | ![](screenshots/workspace-dashboard.png) |
+
+<br>
+
+### 🚀 Generated Website Preview
+
+![](screenshots/generated-website.png)
+
+---
+
+# 🧠 AI Workflow
 
 ```text
 Prompt / Voice Input
@@ -190,6 +220,38 @@ Prompt / Voice Input
           │
           ▼
    Responsive Website
+```
+
+---
+
+# 🏗️ System Architecture
+
+```text
+User Prompt / Voice Input
+            │
+            ▼
+      Google Gemini AI
+            │
+            ▼
+   Website Content Generation
+            │
+            ▼
+      Layout Generator
+            │
+            ▼
+      Live Renderer
+            │
+            ▼
+      Visual Editor
+            │
+            ▼
+      Undo / Redo Engine
+            │
+            ▼
+      Local Storage
+            │
+            ▼
+    Responsive Website
 ```
 
 ---
@@ -218,47 +280,81 @@ Final Website
 
 ---
 
-# ✨ Core Features
+# 📊 What Makes It Different?
 
-| Feature                  | Description                         |
-| ------------------------ | ----------------------------------- |
-| 🤖 AI Generation         | Generate websites from prompts      |
-| 🎙️ Voice Input          | Speak your idea naturally           |
-| ✏️ Live Editing          | Edit directly inside preview        |
-| 🎨 Design Controls       | Themes, colors, spacing, typography |
-| 🔄 Undo / Redo           | Safe experimentation                |
-| 💾 Project Saving        | Continue work anytime               |
-| 📱 Responsive Design     | Mobile-first layouts                |
-| ⚡ Fast Iteration         | Rapid refinement workflow           |
-| 🖼️ Smart Image Handling | Improved visual consistency         |
+| Capability            | Traditional Website Builder | AntiGravity Studio |
+| --------------------- | --------------------------- | ------------------ |
+| AI Website Generation | ❌                           | ✅                  |
+| Voice Input           | ❌                           | ✅                  |
+| Live Editing          | Limited                     | ✅                  |
+| Responsive Layouts    | Manual                      | Automatic          |
+| Iteration Speed       | Slow                        | Fast               |
+| Project Persistence   | Varies                      | ✅                  |
+| Design Customization  | Limited                     | ✅                  |
 
 ---
 
-# 📸 Screenshots
+# ⚡ Technical Highlights
 
-| Login Experience    | Workspace Dashboard          |
-| ------------------- | ---------------------------- |
-| ![](login-page.png) | ![](workspace-dashboard.png) |
-
-<br>
-
-| Generated Website Preview  |
-| -------------------------- |
-| ![](generated-website.png) |
+* Powered by Google Gemini AI
+* Dynamic Website Generation
+* Voice-Based Website Creation
+* Live Visual Editing
+* Real-Time Design Controls
+* Responsive Layout Generation
+* Undo / Redo State Management
+* Persistent Project Storage
+* Mobile-First Experience
 
 ---
 
-# 📊 Comparison
+# 💻 Tech Stack
 
-| Capability             | Traditional Workflow | AntiGravity Studio |
-| ---------------------- | -------------------- | ------------------ |
-| AI Website Generation  | ❌                    | ✅                  |
-| Voice Input            | ❌                    | ✅                  |
-| Live Editing           | Limited              | ✅                  |
-| Responsive Design      | Manual               | Automatic          |
-| Iteration Speed        | Slow                 | Fast               |
-| Project Saving         | Varies               | ✅                  |
-| Customization Controls | Limited              | ✅                  |
+| Layer                 | Technology        |
+| --------------------- | ----------------- |
+| Frontend              | Next.js           |
+| Framework             | React             |
+| Language              | TypeScript        |
+| Styling               | Tailwind CSS      |
+| AI Engine             | Google Gemini API |
+| State Management      | React Hooks       |
+| Storage               | Local Storage     |
+| Deployment            | Vercel            |
+| Development Assistant | GitHub Copilot    |
+
+---
+
+# 📂 Project Structure
+
+```text
+AntiGravity-Studio/
+│
+├── screenshots/
+│   ├── login-page.png
+│   ├── workspace-dashboard.png
+│   └── generated-website.png
+│
+├── src/
+│   ├── app/
+│   │   ├── api/
+│   │   │   ├── auth/
+│   │   │   │   ├── login/
+│   │   │   │   └── signup/
+│   │   │   │
+│   │   │   └── generate-site/
+│   │   │
+│   │   ├── workspace/
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   └── globals.css
+│   │
+│   └── lib/
+│
+├── README.md
+├── package.json
+├── next.config.ts
+└── .gitignore
+```
 
 ---
 
@@ -297,35 +393,6 @@ Launch
 
 ---
 
-# ⚡ Technical Highlights
-
-* Powered by Google Gemini AI
-* Dynamic Website Generation
-* Live Visual Editing
-* Real-Time Customization Controls
-* Undo / Redo State Management
-* Responsive Layout Generation
-* Persistent Project Storage
-* Mobile-First Experience
-
----
-
-# 💻 Tech Stack
-
-| Layer                 | Technology        |
-| --------------------- | ----------------- |
-| Frontend              | Next.js           |
-| Framework             | React             |
-| Language              | TypeScript        |
-| Styling               | Tailwind CSS      |
-| AI Engine             | Google Gemini API |
-| State Management      | React Hooks       |
-| Storage               | Local Storage     |
-| Deployment            | Vercel            |
-| Development Assistant | GitHub Copilot    |
-
----
-
 # ⚔️ Challenges Solved
 
 * Consistent AI website generation
@@ -356,6 +423,10 @@ Launch
 **Gaurav Kumar**
 
 GitHub: https://github.com/gauravbuildz
+
+Live Demo: https://antigravity-studio-gules.vercel.app/workspace
+
+Demo Video: https://youtu.be/YDpMD4-2H7k
 
 ---
 
