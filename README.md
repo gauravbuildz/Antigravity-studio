@@ -1,103 +1,131 @@
-<div align="center">
-
 # 🌌 AntiGravity Studio
 
-### AI-Powered No-Code Website Builder with Real-Time Visual Editing
+> **AI-Powered Website Builder**
+>
+> Transform simple prompts into modern, responsive landing pages in minutes.
 
-![Next.js](https://img.shields.io/badge/Next.js-15-black)
-![TypeScript](https://img.shields.io/badge/TypeScript-Blue)
-![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-38BDF8)
-![Gemini AI](https://img.shields.io/badge/Google-Gemini_AI-orange)
-![License](https://img.shields.io/badge/License-MIT-green)
-
-<br>
-
-🚀 **Live Demo**  
-https://antigravity-studio-gules.vercel.app/workspace
-
-🎥 **Demo Video**  
-https://youtu.be/YDpMD4-2H7k
-
-</div>
+Built for **Microsoft AI Skill Fest — Agent League Hackathon**
 
 ---
 
-# 🖤 Overview
+# 🚀 Overview
 
-AntiGravity Studio is an AI-powered no-code website builder that transforms natural language prompts into modern, responsive websites.
+AntiGravity Studio is an AI-powered website generation platform that helps users create beautiful, responsive websites from natural language prompts.
 
-Built using **Next.js**, **Tailwind CSS**, **TypeScript**, and **Google Gemini AI**, the platform allows users to generate, edit, customize, and preview complete landing pages in real time without writing frontend code.
+Using Google Gemini AI, users can generate landing pages, customize layouts visually, edit content directly inside a live preview, and rapidly iterate without manually building frontend interfaces from scratch.
 
-Whether you're a student, developer, startup founder, or designer, AntiGravity Studio helps turn ideas into production-ready interfaces within seconds.
+The platform is designed for developers, designers, students, founders, and creators who want to move from idea to prototype faster.
 
 ---
 
-# 🌟 Why AntiGravity Studio?
+# 🎯 Problem Statement
 
-Creating beautiful websites usually requires:
+Creating landing pages traditionally requires:
 
-- Design expertise
-- Frontend development skills
-- Significant development time
+* Designing layouts
+* Writing frontend code
+* Styling components
+* Finding visual assets
+* Making responsive adjustments
 
-AntiGravity Studio eliminates these barriers through AI-powered website generation and visual editing.
+This process can take hours.
 
-### Users can:
+AntiGravity Studio reduces this effort by combining AI-powered generation with real-time visual editing in a single workspace.
 
-✅ Generate websites using natural language
+## Result
 
-✅ Edit content directly in the preview
-
-✅ Customize styles without coding
-
-✅ Save and restore projects
-
-✅ Build prototypes faster
-
-✅ Accelerate MVP development
+Generate responsive landing pages and customize them visually within minutes.
 
 ---
 
 # ✨ Features
 
-### 🤖 AI Website Generation
+## 🤖 AI Website Generation
 
-Generate complete websites from simple prompts using Google Gemini AI.
+Generate complete landing pages from natural language prompts using Google Gemini AI.
 
-### 🎙️ Voice Prompt Support
+Examples:
 
-Create websites through voice commands.
+* SaaS Landing Pages
+* Developer Portfolios
+* Startup Websites
+* Agency Websites
+* Product Showcases
+* Personal Brands
 
-### 🎨 Visual Customization
+---
 
-Modify:
+## 🎙️ Voice Prompt Support
 
-- Colors
-- Fonts
-- Border Radius
-- Layout Spacing
-- Padding
-- Themes
+Generate websites using voice input for a faster workflow.
 
-### ✏️ Live Editing
+---
+
+## ✏️ Live Visual Editing
 
 Edit website content directly inside the preview canvas.
 
-### 🔄 Undo / Redo
+Changes are reflected instantly.
 
-Track and restore design changes instantly.
+---
 
-### 💾 Saved Projects
+## 🎨 Design Customization
 
-Store and continue working on previous projects.
+Customize websites using visual controls:
 
-### 📱 Responsive Layouts
+* Theme
+* Colors
+* Typography
+* Corner Radius
+* Padding
+* Spacing
+* Layout Density
 
-Desktop, Tablet, and Mobile optimized designs.
+---
 
-### 🌙 Premium Dark UI
+## 🔄 Undo / Redo History
 
-Modern workspace inspired by Vercel and Linear.
+Safely experiment with design changes while preserving previous states.
+
+---
+
+## 💾 Saved Projects
+
+Store generated projects locally and continue editing later.
+
+---
+
+## 📱 Responsive Design
+
+Generated websites automatically adapt to:
+
+* Desktop
+* Tablet
+* Mobile
+
+---
+
+## 🌙 Premium Workspace Experience
+
+Modern interface inspired by contemporary developer tools and productivity software.
+
+---
+
+## 🖼️ Smart Image Framework
+
+Multi-layer image handling improves visual consistency and helps reduce broken image experiences.
+
+---
+
+# 🎬 Live Demo & Video
+
+## 🚀 Live Demo
+
+https://antigravity-studio-gules.vercel.app/workspace
+
+## 🎥 Demo Video
+
+https://youtu.be/YDpMD4-2H7k
 
 ---
 
@@ -105,218 +133,129 @@ Modern workspace inspired by Vercel and Linear.
 
 ## 🔐 Login Page
 
-![Login Page](screenshots/login-page.png)
+![Login Page](login-page.png)
 
 ---
 
 ## 🛠️ Workspace Dashboard
 
-![Workspace Dashboard](screenshots/workspace-dashboard.png)
+![Workspace Dashboard](workspace-dashboard.png)
 
 ---
 
 ## 🚀 Generated Website Preview
 
-![Generated Website](screenshots/generated-website.png)
+![Generated Website](generated-website.png)
 
 ---
 
-# 🔄 Application Workflow
+# 🏗️ Architecture Overview
 
 ```text
-User Login
-     ↓
-Prompt / Voice Input
-     ↓
-Google Gemini AI
-     ↓
-Layout Generation
-     ↓
-Live Preview
-     ↓
-Visual Editing
-     ↓
-Undo / Redo
-     ↓
-Project Saving
-     ↓
-Responsive Website Output
-```
-
-### Workflow Explanation
-
-### 1️⃣ Authentication
-
-Users sign up or log in.
-
-### 2️⃣ Prompt Input
-
-Users describe the website they want.
-
-Example:
-
-```text
-Create a modern AI startup landing page
-```
-
-### 3️⃣ AI Processing
-
-Gemini AI analyzes:
-
-- Layout structure
-- Website sections
-- Content hierarchy
-- Design patterns
-
-### 4️⃣ Website Generation
-
-A responsive landing page is generated automatically.
-
-### 5️⃣ Live Editing
-
-Users can modify:
-
-- Text
-- Colors
-- Layout spacing
-- Fonts
-- Theme settings
-
-### 6️⃣ Save Progress
-
-Projects are stored and can be reopened later.
-
----
-
-# 🏗️ System Architecture
-
-```text
-User
- │
- ▼
-Prompt / Voice Input
- │
- ▼
-Google Gemini AI
- │
- ▼
-Generation Engine
- │
- ▼
-Live Preview Canvas
- │
- ▼
-Visual Editor
- │
- ▼
-History Manager
- │
- ▼
-Project Storage
- │
- ▼
-Responsive Website Output
+User Prompt / Voice Input
+            │
+            ▼
+      Google Gemini AI
+            │
+            ▼
+     Website Generation
+            │
+            ▼
+      Preview Renderer
+            │
+            ▼
+      Visual Editor UI
+            │
+            ▼
+      Undo / Redo System
+            │
+            ▼
+      Local Project Storage
+            │
+            ▼
+      Responsive Website
 ```
 
 ---
 
-# 🧠 Smart AI Framework
+# 🤖 GitHub Copilot Usage
 
-## Dynamic Prompt Processing
+GitHub Copilot was used during development for:
 
-User prompts are converted into structured website layouts.
+* Code completion
+* Refactoring assistance
+* Boilerplate generation
+* Productivity improvements
+* Debugging support
 
-## Intelligent Section Generation
-
-The AI automatically creates:
-
-- Hero Sections
-- Features Sections
-- Pricing Tables
-- Testimonials
-- FAQs
-- Contact Sections
-- Footers
-
-## Smart Fallback System
-
-When AI generation is unavailable, category-specific templates are generated automatically.
-
-Supported Categories:
-
-- SaaS
-- Analytics
-- Portfolio
-- Fitness
-- Wellness
-- Luxury Products
-- E-commerce
+All architecture decisions, UI design, feature implementation, testing, and final project integration were completed by the developer.
 
 ---
 
-# 🚀 Future Roadmap
-
-- Export websites as code
-- One-click deployment
-- Multi-page website generation
-- Team collaboration
-- Figma-to-Website support
-- AI design suggestions
-- Template marketplace
-
----
-
-# 📂 Project Structure
+# 🧠 How It Works
 
 ```text
-src/
-├── app/
-│   ├── api/
-│   │   ├── auth/
-│   │   │   ├── login/
-│   │   │   └── signup/
-│   │   └── generate-site/
-│   ├── workspace/
-│   ├── globals.css
-│   ├── layout.tsx
-│   └── page.tsx
-│
-├── lib/
-│   └── db.ts
-
-AGENTS.md
-README.md
-package.json
-next.config.ts
+1. Enter Prompt
+       ↓
+2. Gemini AI Generation
+       ↓
+3. Website Structure Creation
+       ↓
+4. Live Preview Rendering
+       ↓
+5. Visual Editing
+       ↓
+6. Save Project
+       ↓
+7. Final Website
 ```
 
 ---
 
-# 🛠️ Tech Stack
+# 📸 Smart Image Framework
 
-### Frontend
+AntiGravity Studio uses a layered image-handling strategy.
 
-- React
-- Next.js
-- TypeScript
-- Tailwind CSS
+### Dynamic Keyword Generation
 
-### AI
+Prompt context is analyzed to create image search keywords.
 
-- Google Gemini API
+### Category-Aware Fallbacks
 
-### Backend
+Fallback handling supports categories such as:
 
-- Next.js API Routes
+* Technology
+* AI
+* Business
+* Finance
+* Healthcare
+* Travel
+* Fitness
+* E-Commerce
 
-### State Management
+### Offline Layout Support
 
-- Local Storage
-- Undo / Redo History
+When AI services are unavailable, category-specific layouts help maintain usability.
 
 ---
 
-# ⚙️ Local Setup
+# 💻 Tech Stack
+
+| Layer                 | Technology        |
+| --------------------- | ----------------- |
+| Frontend              | Next.js           |
+| UI                    | React             |
+| Language              | TypeScript        |
+| Styling               | Tailwind CSS      |
+| AI                    | Google Gemini API |
+| State Management      | React Hooks       |
+| Storage               | Local Storage     |
+| Deployment            | Vercel            |
+| Development Assistant | GitHub Copilot    |
+
+---
+
+# 🛠️ Local Development
 
 ## Install Dependencies
 
@@ -326,14 +265,20 @@ npm install
 
 ## Configure Environment Variables
 
-Create `.env.local`
+Create:
 
 ```env
-GEMINI_API_KEY=your_api_key
+.env.local
+```
+
+Add:
+
+```env
+GEMINI_API_KEY=your_google_gemini_api_key
 JWT_SECRET=your_secret_key
 ```
 
-## Run Development Server
+## Start Development Server
 
 ```bash
 npm run dev
@@ -351,28 +296,108 @@ http://localhost:3001
 npx tsc --noEmit
 ```
 
+## Production Build
+
+```bash
+npm run build
+npm start
+```
+
 ---
 
-# 🎥 Demo Video
+# 📂 Project Structure
 
-Watch the full project demo:
+```text
+src/
+├── app/
+│   ├── api/
+│   │   ├── auth/
+│   │   └── generate-site/
+│   ├── workspace/
+│   ├── page.tsx
+│   └── layout.tsx
+│
+├── lib/
+│
+├── public/
+│
+README.md
+package.json
+next.config.ts
+```
 
-https://youtu.be/YDpMD4-2H7k
+---
+
+# 📊 Why This Project Matters
+
+| Area                 | Impact                                        |
+| -------------------- | --------------------------------------------- |
+| AI Integration       | Gemini-powered website generation             |
+| Productivity         | Faster prototyping                            |
+| Responsive Design    | Mobile-friendly layouts                       |
+| Visual Editing       | Real-time customization                       |
+| Developer Experience | Modern workspace                              |
+| Practical Utility    | Useful for developers, startups, and students |
+
+---
+
+# 🏆 Hackathon Information
+
+| Field     | Value                                                 |
+| --------- | ----------------------------------------------------- |
+| Event     | Microsoft AI Skill Fest — Agent League Hackathon      |
+| Category  | AI-Powered Developer Tools                            |
+| Developer | Gaurav Kumar                                          |
+| Status    | Submission Ready ✅                                    |
+| GitHub    | https://github.com/gauravbuildz                       |
+| Live Demo | https://antigravity-studio-gules.vercel.app/workspace |
+
+---
+
+# 🚀 Future Roadmap
+
+* Multi-page website generation
+* One-click deployment
+* Export to additional frameworks
+* Cloud project synchronization
+* Team collaboration
+* Template marketplace
+* Enhanced AI customization
 
 ---
 
 # 👨‍💻 Author
 
-### Gaurav Kumar
+## Gaurav Kumar
 
-GitHub: https://github.com/gauravbuildz
+GitHub:
 
-Built with 💜 using Next.js, Tailwind CSS, TypeScript, and Google Gemini AI.
+https://github.com/gauravbuildz
+
+Project:
+
+AntiGravity Studio
+
+Built for Microsoft AI Skill Fest — Agent League Hackathon.
 
 ---
 
-<div align="center">
+# 📄 License
 
+MIT License
 
+---
 
-</div>
+# 🙏 Acknowledgments
+
+* Google Gemini API
+* GitHub Copilot
+* Next.js
+* React
+* Tailwind CSS
+* Vercel
+* Microsoft AI Skill Fest
+
+---
+
+**Built with ❤️ by Gaurav Kumar**
