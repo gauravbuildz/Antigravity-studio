@@ -198,6 +198,16 @@ Automatically adapts across desktop, tablet, and mobile devices.
 
 ---
 
+---
+
+# 🏗️ Architecture Diagram
+
+![Architecture Diagram](screenshots/architecture-diagram.png)
+
+The architecture illustrates how AntiGravity Studio transforms voice or text prompts into responsive websites using Google Gemini AI while enabling live editing, customization, project persistence, and rapid development with GitHub Copilot.
+
+---
+
 # 🧠 AI Workflow
 
 ```text
