@@ -285,8 +285,7 @@ Project Repository: https://github.com/gauravbuildz/Antigravity-studio
 * React
 * Tailwind CSS
 * Vercel
-* Microsoft AI Skill Fest
-
+  
 ---
 
 # 📄 License
