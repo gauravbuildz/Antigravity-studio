@@ -9,30 +9,30 @@ Transform natural language prompts into modern, responsive, production-ready web
 ### 🎙️ Voice → 🤖 AI → ✨ Website
 
 <p>
-  <strong>🏆 Built for Microsoft AI Skill Fest — Agent League Hackathon</strong>
+<strong>🏆 Official Submission for Microsoft AI Skill Fest — Agent League Hackathon 2026</strong>
 </p>
 
 <br>
 
 <a href="https://antigravity-studio-gules.vercel.app/workspace">
-  <img src="https://img.shields.io/badge/🚀_Live_Demo-Try_Now-success?style=for-the-badge" alt="Live Demo"/>
+<img src="https://img.shields.io/badge/🚀_Live_Demo-Try_Now-success?style=for-the-badge" alt="Live Demo"/>
 </a>
 
  
 
 <a href="https://youtu.be/YDpMD4-2H7k">
-  <img src="https://img.shields.io/badge/🎥_Watch_Demo_Video-red?style=for-the-badge" alt="Demo Video"/>
+<img src="https://img.shields.io/badge/🎥_Demo_Video-Watch_Now-red?style=for-the-badge" alt="Demo Video"/>
 </a>
 
  
 
-<a href="https://github.com/gauravbuildz">
-  <img src="https://img.shields.io/badge/👨‍💻_Developer-Gaurav_Kumar-blue?style=for-the-badge" alt="Developer"/>
+<a href="https://github.com/gauravbuildz/Antigravity-studio">
+<img src="https://img.shields.io/badge/💻_Source_Code-GitHub-black?style=for-the-badge" alt="GitHub"/>
 </a>
 
 <br><br>
 
-<img src="https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js"/>
+<img src="https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js"/>
 <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react"/>
 <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript"/>
 <img src="https://img.shields.io/badge/TailwindCSS-38BDF8?style=flat-square&logo=tailwind-css"/>
@@ -52,49 +52,38 @@ Transform natural language prompts into modern, responsive, production-ready web
 
 ## 🌐 Live Application
 
-👉 https://antigravity-studio-gules.vercel.app/workspace
+https://antigravity-studio-gules.vercel.app/workspace
 
 ## 🎥 Demo Video
 
-[![Watch Demo](https://img.youtube.com/vi/YDpMD4-2H7k/maxresdefault.jpg)](https://youtu.be/YDpMD4-2H7k)
+https://youtu.be/YDpMD4-2H7k
 
-> Click the thumbnail above to watch the complete demo walkthrough.
+## 💻 GitHub Repository
 
----
-
-# 🏆 Hackathon Submission
-
-| Category | Details                                    |
-| -------- | ------------------------------------------ |
-| Event    | Microsoft AI Skill Fest                    |
-| Track    | Agent League Hackathon                     |
-| Project  | AntiGravity Studio                         |
-| Theme    | AI-Powered Productivity & Website Creation |
+https://github.com/gauravbuildz/Antigravity-studio
 
 ---
 
 # 🌟 The Problem
 
-Building a professional website traditionally requires:
+Creating a professional website traditionally requires:
 
 * Designing layouts manually
 * Writing frontend code
 * Managing responsiveness
 * Styling components
-* Repeated iterations
+* Continuous iteration
 * Significant development time
 
-For founders, students, developers, freelancers, and creators, transforming an idea into a polished website often takes hours or even days.
+For founders, students, freelancers, and developers, transforming an idea into a polished website can take hours or even days.
 
 ---
 
-# 💡 Our Solution
+# 💡 The Solution
 
-AntiGravity Studio leverages **Google Gemini AI** to transform natural language prompts into responsive websites within seconds.
+AntiGravity Studio leverages Google Gemini AI to transform natural language prompts into responsive websites within seconds.
 
-Instead of manually designing and coding:
-
-### Simply Describe Your Idea
+Simply describe your idea:
 
 ```text
 Create a modern AI SaaS landing page.
@@ -109,62 +98,14 @@ Include:
 Use a dark theme and premium design.
 ```
 
-### AntiGravity Studio Generates
+The platform automatically generates:
 
-✅ Responsive Layout
-
-✅ Modern UI
-
-✅ Structured Sections
-
-✅ Mobile Optimization
-
-✅ Editable Content
-
-✅ Ready for Further Customization
-
----
-
-# 🚀 Why AntiGravity Studio?
-
-Most AI website generators stop after generation.
-
-AntiGravity Studio continues the workflow with:
-
-### 🤖 AI Website Generation
-
-Generate complete websites using natural language prompts.
-
-### 🎙️ Voice-to-Website Workflow
-
-Speak your idea and instantly generate a website.
-
-### ✏️ Live Visual Editing
-
-Edit content directly inside the generated preview.
-
-### 🎨 Real-Time Design Customization
-
-Customize:
-
-* Typography
-* Colors
-* Themes
-* Border Radius
-* Spacing
-* Layout Density
-
-### 🔄 Undo / Redo Support
-
-Experiment freely while preserving previous versions.
-
-### 💾 Saved Projects
-
-Store projects locally and continue editing later.
-
-### 📱 Mobile-First Responsive Design
-
-Automatically adapts across desktop, tablet, and mobile devices.
+* Responsive Layouts
+* Modern UI
+* Structured Sections
+* Mobile Optimization
+* Editable Content
+* Production-Ready Designs
 
 ---
 
@@ -186,17 +127,17 @@ Automatically adapts across desktop, tablet, and mobile devices.
 
 # 📸 Screenshots
 
-| Login Experience | Workspace Dashboard |
-|-----------------|---------------------|
-| ![](screenshots/login-page.png) | ![](screenshots/workspace-dashboard.png) |
+## 🔐 Login Experience
 
-<br>
+![Login Page](screenshots/login-page.png)
 
-### 🚀 Generated Website Preview
+## 🛠️ Workspace Dashboard
 
-![](screenshots/generated-website.png)
+![Workspace Dashboard](screenshots/workspace-dashboard.png)
 
----
+## 🚀 Generated Website Preview
+
+![Generated Website](screenshots/generated-website.png)
 
 ---
 
@@ -204,103 +145,7 @@ Automatically adapts across desktop, tablet, and mobile devices.
 
 ![Architecture Diagram](screenshots/architecture-diagram.png)
 
-The architecture illustrates how AntiGravity Studio transforms voice or text prompts into responsive websites using Google Gemini AI while enabling live editing, customization, project persistence, and rapid development with GitHub Copilot.
-
----
-
-# 🧠 AI Workflow
-
-```text
-Prompt / Voice Input
-          │
-          ▼
-     Google Gemini AI
-          │
-          ▼
- Structured Website Data
-          │
-          ▼
- Dynamic Layout Generator
-          │
-          ▼
-     Live Renderer
-          │
-          ▼
-      Visual Editor
-          │
-          ▼
-   Responsive Website
-```
-
----
-
-# 🏗️ System Architecture
-
-```text
-User Prompt / Voice Input
-            │
-            ▼
-      Google Gemini AI
-            │
-            ▼
-   Website Content Generation
-            │
-            ▼
-      Layout Generator
-            │
-            ▼
-      Live Renderer
-            │
-            ▼
-      Visual Editor
-            │
-            ▼
-      Undo / Redo Engine
-            │
-            ▼
-      Local Storage
-            │
-            ▼
-    Responsive Website
-```
-
----
-
-# ⚙️ User Journey
-
-```text
-Idea
- ↓
-Prompt / Voice
- ↓
-AI Processing
- ↓
-Website Generation
- ↓
-Live Preview
- ↓
-Visual Editing
- ↓
-Customization
- ↓
-Save Project
- ↓
-Final Website
-```
-
----
-
-# 📊 What Makes It Different?
-
-| Capability            | Traditional Website Builder | AntiGravity Studio |
-| --------------------- | --------------------------- | ------------------ |
-| AI Website Generation | ❌                           | ✅                  |
-| Voice Input           | ❌                           | ✅                  |
-| Live Editing          | Limited                     | ✅                  |
-| Responsive Layouts    | Manual                      | Automatic          |
-| Iteration Speed       | Slow                        | Fast               |
-| Project Persistence   | Varies                      | ✅                  |
-| Design Customization  | Limited                     | ✅                  |
+The architecture demonstrates how voice or text prompts are processed using Google Gemini AI to generate websites while enabling live editing, customization, project persistence, and responsive rendering.
 
 ---
 
@@ -322,8 +167,8 @@ Final Website
 
 | Layer                 | Technology        |
 | --------------------- | ----------------- |
-| Frontend              | Next.js           |
-| Framework             | React             |
+| Frontend              | Next.js 16        |
+| Framework             | React 19          |
 | Language              | TypeScript        |
 | Styling               | Tailwind CSS      |
 | AI Engine             | Google Gemini API |
@@ -331,6 +176,19 @@ Final Website
 | Storage               | Local Storage     |
 | Deployment            | Vercel            |
 | Development Assistant | GitHub Copilot    |
+
+---
+
+# 🤖 GitHub Copilot Usage
+
+GitHub Copilot was used during development for:
+
+* Code completion
+* Refactoring assistance
+* Boilerplate generation
+* Productivity improvements
+
+All architecture decisions, feature implementation, testing, debugging, and final project integration were completed by the developer.
 
 ---
 
@@ -342,7 +200,8 @@ AntiGravity-Studio/
 ├── screenshots/
 │   ├── login-page.png
 │   ├── workspace-dashboard.png
-│   └── generated-website.png
+│   ├── generated-website.png
+│   └── architecture-diagram.png
 │
 ├── src/
 │   ├── app/
@@ -350,9 +209,7 @@ AntiGravity-Studio/
 │   │   │   ├── auth/
 │   │   │   │   ├── login/
 │   │   │   │   └── signup/
-│   │   │   │
 │   │   │   └── generate-site/
-│   │   │
 │   │   ├── workspace/
 │   │   ├── layout.tsx
 │   │   ├── page.tsx
@@ -403,18 +260,6 @@ Launch
 
 ---
 
-# ⚔️ Challenges Solved
-
-* Consistent AI website generation
-* Dynamic content rendering
-* Responsive layout automation
-* Real-time editing synchronization
-* State persistence
-* Undo / Redo workflow management
-* Project continuity and storage
-
----
-
 # 🔮 Future Roadmap
 
 * Multi-Page Website Generation
@@ -434,9 +279,7 @@ Launch
 
 GitHub: https://github.com/gauravbuildz
 
-Live Demo: https://antigravity-studio-gules.vercel.app/workspace
-
-Demo Video: https://youtu.be/YDpMD4-2H7k
+Project Repository: https://github.com/gauravbuildz/Antigravity-studio
 
 ---
 
@@ -462,10 +305,6 @@ MIT License
 
 ## ⭐ Turning Ideas Into Websites With AI
 
-### Built for Microsoft AI Skill Fest — Agent League Hackathon
-
-If you found this project interesting, consider giving it a ⭐ on GitHub.
-
-🚀 From Prompt to Production-Ready Website in Minutes
+### From Prompt to Production-Ready Website in Minutes
 
 </div>
