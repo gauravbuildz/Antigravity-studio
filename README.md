@@ -125,27 +125,21 @@ The platform automatically generates:
 
 ---
 
-# 📸 Screenshots
+## 📸 Screenshots
 
-## 🔐 Login Experience
+| Login Experience | Workspace Dashboard |
+|-----------------|---------------------|
+| ![](screenshots/login-page.png) | ![](screenshots/workspace-dashboard.png) |
 
-![Login Page](screenshots/login-page.png)
+<br>
 
-## 🛠️ Workspace Dashboard
+### 🚀 Generated Website Preview
 
-![Workspace Dashboard](screenshots/workspace-dashboard.png)
+![](screenshots/generated-website.png)
 
-## 🚀 Generated Website Preview
+### 🏗️ Architecture Diagram
 
-![Generated Website](screenshots/generated-website.png)
-
----
-
-# 🏗️ Architecture Diagram
-
-![Architecture Diagram](screenshots/architecture-diagram.png)
-
-The architecture demonstrates how voice or text prompts are processed using Google Gemini AI to generate websites while enabling live editing, customization, project persistence, and responsive rendering.
+![](screenshots/architecture-diagram.png)
 
 ---
 
