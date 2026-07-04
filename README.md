@@ -8,10 +8,6 @@ Transform natural language prompts into modern, responsive, production-ready web
 
 ### 🎙️ Voice → 🤖 AI → ✨ Website
 
-<p>
-<strong>🏆 Official Submission for Microsoft AI Skill Fest — Agent League Hackathon 2026</strong>
-</p>
-
 <br>
 
 <a href="https://antigravity-studio-gules.vercel.app/workspace">
