@@ -228,8 +228,8 @@ export async function POST(req: Request) {
       text?: string;
     }
 
-    const body = await req.json() as { prompt?: string; history?: ChatHistoryItem[] };
-    const { prompt, history } = body;
+    const body = await req.json() as { prompt?: string; history?: ChatHistoryItem[]; themeSettings?: any };
+    const { prompt, history, themeSettings } = body;
 
     if (!prompt || typeof prompt !== 'string') {
       return NextResponse.json({ error: 'Prompt is required' }, { status: 400, headers: corsHeaders });
@@ -295,12 +295,11 @@ STRICT LAYOUT & COMPLIANCE RULES:
     ];
 
     const modelsToTry = [
-      'gemini-1.5-flash',
-      'gemini-2.5-flash',
       'gemini-2.0-flash',
-      'gemini-flash-latest',
-      'gemini-2.5-pro',
-      'gemini-pro-latest'
+      'gemini-1.5-flash',
+      'gemini-1.5-pro',
+      'gemini-2.0-pro-exp-02-05',
+      'gemini-flash-latest'
     ];
 
     let html = '';
@@ -388,7 +387,7 @@ STRICT LAYOUT & COMPLIANCE RULES:
       if (fallbackReasonStr.length > 150) {
         fallbackReasonStr = fallbackReasonStr.substring(0, 150) + '...';
       }
-      html = generateOfflineFallback(prompt);
+      html = generateOfflineFallback(prompt, themeSettings);
       isFallbackResponse = true;
     }
 
@@ -448,27 +447,226 @@ function isAntiGravityProject(prompt: string, history?: { role: string; parts?: 
   return false;
 }
 
-function generateOfflineFallback(prompt: string): string {
+function generateOfflineFallback(prompt: string, settings?: any): string {
   const clean = prompt.toLowerCase();
-  if (clean.includes('gym') || clean.includes('fitness') || clean.includes('titangym') || clean.includes('workout')) {
-    return getTitanGymTemplate();
+  
+  // Extract business/brand name from prompt (e.g. "called Aether Beans" or "named X" or first few words capitalized)
+  let brandName = "Premium Brand";
+  const calledMatch = prompt.match(/(?:called|named|named as|titled|brand)\s+([A-Za-z0-9\s\-\_]+)/i);
+  if (calledMatch && calledMatch[1]) {
+    brandName = calledMatch[1].trim().split(/\s+/).slice(0, 3).join(' ');
+  } else {
+    // Try to extract first capitalized phrase or use capitalized prompt keywords
+    const words = prompt.split(/\s+/).filter(w => w.length > 2);
+    if (words.length > 0) {
+      brandName = words.slice(0, 2).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    }
   }
-  if (clean.includes('sneaker') || clean.includes('shoe') || clean.includes('kick') || clean.includes('footwear') || clean.includes('hyperkicks')) {
-    return getHyperKicksTemplate();
+
+  // Clean brandName logic overrides
+  if (brandName.length > 25) {
+    brandName = brandName.substring(0, 25);
   }
-  if (clean.includes('saas') || clean.includes('dashboard') || clean.includes('analytics') || clean.includes('metrics') || clean.includes('software')) {
-    return getSaaSTemplate();
+
+  // Determine site category
+  let category = 'tech';
+  let categoryTitle = 'Digital Innovation';
+  let categoryDesc = 'Pushing the boundaries of design and engineering.';
+  let categoryKeyword = 'office';
+
+  if (clean.includes('coffee') || clean.includes('cafe') || clean.includes('restaurant') || clean.includes('bakery') || clean.includes('food') || clean.includes('bean')) {
+    category = 'food';
+    categoryTitle = 'Gourmet Culinary Experience';
+    categoryDesc = 'Freshly brewed ideas and organic ingredients crafted daily.';
+    categoryKeyword = 'coffee-shop';
+  } else if (clean.includes('gym') || clean.includes('fitness') || clean.includes('workout') || clean.includes('trainer') || clean.includes('fit')) {
+    category = 'fitness';
+    categoryTitle = 'Elite Physical Performance';
+    categoryDesc = 'Unleash your potential with professional coaching programs.';
+    categoryKeyword = 'gym-workout';
+  } else if (clean.includes('sneaker') || clean.includes('shoe') || clean.includes('kick') || clean.includes('apparel') || clean.includes('fashion') || clean.includes('wear')) {
+    category = 'fashion';
+    categoryTitle = 'Premium Streetwear & Style';
+    categoryDesc = 'Designed for movement, tailored for the style-conscious.';
+    categoryKeyword = 'sneakers';
+  } else if (clean.includes('saas') || clean.includes('dashboard') || clean.includes('analytics') || clean.includes('metrics') || clean.includes('software') || clean.includes('key')) {
+    category = 'tech';
+    categoryTitle = 'Real-time Operations Analytics';
+    categoryDesc = 'Consolidate logs, key metrics, and workflows in one dashboard.';
+    categoryKeyword = 'data-dashboard';
+  } else if (clean.includes('watch') || clean.includes('luxury') || clean.includes('jewelry') || clean.includes('timepiece')) {
+    category = 'watch';
+    categoryTitle = 'Luxury Horology & Craftsmanship';
+    categoryDesc = 'Exquisite timepieces meticulously crafted for a lifetime of distinction.';
+    categoryKeyword = 'luxury-watch';
   }
-  if (clean.includes('portfolio') || clean.includes('agency') || clean.includes('creative') || clean.includes('design') || clean.includes('studio') || clean.includes('photography')) {
-    return getPortfolioTemplate();
-  }
-  if (clean.includes('fitness') || clean.includes('gym') || clean.includes('health') || clean.includes('workout') || clean.includes('wellness') || clean.includes('trainer')) {
-    return getFitnessTemplate();
-  }
-  if (clean.includes('watch') || clean.includes('luxury') || clean.includes('shop') || clean.includes('store') || clean.includes('e-commerce') || clean.includes('product')) {
-    return getWatchTemplate();
-  }
-  return getCompliantLayout();
+
+  // Choose Unsplash photo keyword matching category
+  const unsplashPhoto = `https://images.unsplash.com/featured/?${categoryKeyword}`;
+
+  // Customizer styling variables from settings
+  const paddingVal = settings?.padding !== undefined ? settings.padding : 24;
+  const gapVal = settings?.gap !== undefined ? settings.gap : 24;
+  const radiusVal = settings?.radius !== undefined ? settings.radius : 12;
+  const accentColor = settings?.accent || 'indigo';
+  const isDark = settings?.darkMode !== false;
+
+  const accentHex = accentColor === 'emerald' ? '#10b981' : (accentColor === 'cyan' ? '#06b6d4' : (accentColor === 'orange' ? '#f97316' : '#6366f1'));
+
+  // Compile a clean, premium, fully-customized layout matching the business prompt!
+  return `<!DOCTYPE html>
+<html lang="en" class="${isDark ? 'dark' : ''}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${brandName} - ${categoryTitle}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            accent: '${accentHex}'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .custom-padding { padding: ${paddingVal}px !important; }
+    .custom-gap { gap: ${gapVal}px !important; }
+    .custom-radius { border-radius: ${radiusVal}px !important; }
+  </style>
+</head>
+<body class="${isDark ? 'bg-[#050507] text-[#f8fafc]' : 'bg-[#f8fafc] text-[#0f172a]'} min-h-screen font-sans">
+  <div class="max-w-7xl mx-auto custom-padding flex flex-col custom-gap">
+    
+    <!-- Navigation Header -->
+    <header class="flex flex-col sm:flex-row items-center justify-between border ${isDark ? 'border-white/5 bg-[#0C0C0E]/60' : 'border-slate-200 bg-white/80'} backdrop-blur-xl custom-radius custom-padding" style="gap: 16px;">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 custom-radius bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+          <span class="text-white font-black text-sm">${brandName.substring(0,2).toUpperCase()}</span>
+        </div>
+        <span class="font-extrabold text-xl tracking-tight">${brandName}</span>
+      </div>
+      <nav class="flex items-center gap-6">
+        <a href="#about" class="text-sm font-medium hover:text-indigo-400 transition-colors">About</a>
+        <a href="#features" class="text-sm font-medium hover:text-indigo-400 transition-colors">Features</a>
+        <a href="#contact" class="text-sm font-medium hover:text-indigo-400 transition-colors font-semibold">Connect</a>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="grid grid-cols-1 lg:grid-cols-2 custom-gap items-center border ${isDark ? 'border-white/5 bg-[#0C0C0E]/30' : 'border-slate-200 bg-slate-50/50'} custom-radius custom-padding">
+      <div class="flex flex-col gap-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-400 self-start border border-indigo-500/20">
+          <span>✨ New Release</span>
+        </div>
+        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+          Welcome to <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">${brandName}</span>
+        </h1>
+        <p class="text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'} leading-relaxed max-w-lg">
+          ${categoryDesc} Custom built for your requirements. Discover premium services, interactive controls, and lightning-fast deployment sandboxes.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#contact" class="px-6 py-3 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-500 transition-colors custom-radius shadow-lg shadow-indigo-600/20">
+            Get Started
+          </a>
+          <a href="#features" class="px-6 py-3 text-sm font-bold border border-white/10 hover:bg-white/5 transition-colors custom-radius">
+            Learn More
+          </a>
+        </div>
+      </div>
+      <div class="relative w-full aspect-video lg:aspect-square custom-radius overflow-hidden shadow-2xl">
+        <img 
+          src="${unsplashPhoto}" 
+          alt="${brandName} Showroom" 
+          class="w-full h-full object-cover bg-neutral-900"
+        />
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="border ${isDark ? 'border-white/5 bg-[#0C0C0E]/30' : 'border-slate-200 bg-slate-50/50'} custom-radius custom-padding flex flex-col custom-gap">
+      <div class="text-center max-w-xl mx-auto flex flex-col gap-2">
+        <h2 class="text-3xl font-extrabold tracking-tight">Core Offerings</h2>
+        <p class="text-xs ${isDark ? 'text-slate-400' : 'text-slate-600'}">Designed to meet the exact goals of your brand prompt.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 custom-gap">
+        <div class="border ${isDark ? 'border-white/5 bg-[#0a0a0c]' : 'border-slate-200 bg-white'} custom-radius custom-padding flex flex-col gap-3">
+          <span class="text-2xl">🚀</span>
+          <h3 class="font-bold text-base">Lightning Fast</h3>
+          <p class="text-xs ${isDark ? 'text-slate-400' : 'text-slate-600'} leading-relaxed">Built from layout elements styled to perform optimally under heavy traffic.</p>
+        </div>
+        <div class="border ${isDark ? 'border-white/5 bg-[#0a0a0c]' : 'border-slate-200 bg-white'} custom-radius custom-padding flex flex-col gap-3">
+          <span class="text-2xl">🛡️</span>
+          <h3 class="font-bold text-base">Secure Schema</h3>
+          <p class="text-xs ${isDark ? 'text-slate-400' : 'text-slate-600'} leading-relaxed">Inputs sanitizations, session validations, and strict protection controls.</p>
+        </div>
+        <div class="border ${isDark ? 'border-white/5 bg-[#0a0a0c]' : 'border-slate-200 bg-white'} custom-radius custom-padding flex flex-col gap-3">
+          <span class="text-2xl">💎</span>
+          <h3 class="font-bold text-base">Premium Design</h3>
+          <p class="text-xs ${isDark ? 'text-slate-400' : 'text-slate-600'} leading-relaxed">Custom spacing ratios, rounded corners, and modern typography grids.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contact" class="grid grid-cols-1 lg:grid-cols-2 custom-gap border ${isDark ? 'border-white/5 bg-[#0C0C0E]/30' : 'border-slate-200 bg-slate-50/50'} custom-radius custom-padding items-stretch">
+      <div class="flex flex-col justify-between gap-6">
+        <div>
+          <h2 class="text-3xl font-extrabold tracking-tight">Stay Connected</h2>
+          <p class="text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'} mt-2 max-w-md leading-relaxed">
+            Send us a message and start building. Our team will contact you back immediately.
+          </p>
+        </div>
+        <div class="flex flex-col gap-3">
+          <span class="text-xs text-indigo-400 font-semibold">📍 Downtown Seattle HQ</span>
+          <span class="text-xs text-slate-400">📧 support@${brandName.toLowerCase().replace(/\s+/g, '')}.com</span>
+        </div>
+      </div>
+      <form action="/api/auth/signup" method="POST" class="flex flex-col gap-4 border ${isDark ? 'border-white/5 bg-[#0a0a0c]' : 'border-slate-200 bg-white'} custom-radius custom-padding">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-[10px] font-mono tracking-wider uppercase font-semibold text-slate-400">Email Address</label>
+          <input 
+            type="email" 
+            name="email"
+            required 
+            placeholder="name@company.com" 
+            class="px-4 py-3 text-sm bg-neutral-900 border border-neutral-800 rounded-lg focus:outline-none focus:border-indigo-500 text-white"
+          />
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-[10px] font-mono tracking-wider uppercase font-semibold text-slate-400">Password</label>
+          <input 
+            type="password" 
+            name="password"
+            required 
+            placeholder="••••••••" 
+            class="px-4 py-3 text-sm bg-neutral-900 border border-neutral-800 rounded-lg focus:outline-none focus:border-indigo-500 text-white"
+          />
+        </div>
+        <button 
+          type="submit" 
+          class="py-3 bg-indigo-600 hover:bg-indigo-500 transition-colors text-white font-bold text-sm custom-radius"
+        >
+          Send Message
+        </button>
+      </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="flex flex-col sm:flex-row items-center justify-between border ${isDark ? 'border-white/5 bg-[#0C0C0E]/60' : 'border-slate-200 bg-white/80'} backdrop-blur-xl custom-radius custom-padding text-xs text-slate-400" style="gap: 16px;">
+      <span>© 2026 ${brandName}. All rights reserved.</span>
+      <div class="flex gap-6">
+        <a href="#" class="hover:text-indigo-400 transition-colors">Privacy Policy</a>
+        <a href="#" class="hover:text-indigo-400 transition-colors">Terms of Service</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>`;
 }
 
 function getHyperKicksTemplate(): string {

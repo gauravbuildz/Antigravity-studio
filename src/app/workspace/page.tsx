@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { convertHtmlToReact } from '@/lib/reactConverter';
+import { cleanExportHtml } from '@/lib/cleaner';
 import { 
   Sparkles, 
   Code, 
@@ -25,7 +27,12 @@ import {
   ChevronDown,
   Sliders,
   Undo,
-  Mic
+  Mic,
+  Upload,
+  User,
+  LogOut,
+  Settings,
+  ShieldCheck
 } from 'lucide-react';
 
 interface SpeechRecognitionInstance {
@@ -50,6 +57,7 @@ interface SavedProject {
   title: string;
   prompt: string;
   html: string;
+  pages?: Array<{ name: string; path: string; html: string }>;
   chatHistory: ChatMessage[];
   timestamp: number;
 }
@@ -119,6 +127,41 @@ const injectEditableScript = (
         'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=1200',
         'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=1200'
       ],
+      medical: [
+        'https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1200',
+        'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?q=80&w=1200',
+        'https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=1200'
+      ],
+      education: [
+        'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200',
+        'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200',
+        'https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?q=80&w=1200'
+      ],
+      realestate: [
+        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200',
+        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1200',
+        'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1200'
+      ],
+      automobile: [
+        'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200',
+        'https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=1200',
+        'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=1200'
+      ],
+      beauty: [
+        'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200',
+        'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=1200',
+        'https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=1200'
+      ],
+      petcare: [
+        'https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=1200',
+        'https://images.unsplash.com/photo-1587300003388-59208cc962cb?q=80&w=1200',
+        'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?q=80&w=1200'
+      ],
+      ecommerce: [
+        'https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1200',
+        'https://images.unsplash.com/photo-1472851294608-062f824d29cc?q=80&w=1200',
+        'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1200'
+      ],
       fallback: [
         'https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=1200',
         'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200',
@@ -150,10 +193,24 @@ const injectEditableScript = (
             category = 'tech';
           } else if (checkStr.includes('nature') || checkStr.includes('plant') || checkStr.includes('eco') || checkStr.includes('garden') || checkStr.includes('landscape') || checkStr.includes('forest') || checkStr.includes('tree') || checkStr.includes('green')) {
             category = 'nature';
-          } else if (checkStr.includes('food') || checkStr.includes('restaurant') || checkStr.includes('gourmet') || checkStr.includes('meal') || checkStr.includes('eat') || checkStr.includes('cooking') || checkStr.includes('recipe')) {
+          } else if (checkStr.includes('food') || checkStr.includes('restaurant') || checkStr.includes('gourmet') || checkStr.includes('meal') || checkStr.includes('eat') || checkStr.includes('cooking') || checkStr.includes('recipe') || checkStr.includes('bakery') || checkStr.includes('coffee') || checkStr.includes('cafe')) {
             category = 'food';
-          } else if (checkStr.includes('travel') || checkStr.includes('tour') || checkStr.includes('adventure') || checkStr.includes('trip') || checkStr.includes('scenery') || checkStr.includes('beach') || checkStr.includes('vacation')) {
+          } else if (checkStr.includes('travel') || checkStr.includes('tour') || checkStr.includes('adventure') || checkStr.includes('trip') || checkStr.includes('scenery') || checkStr.includes('beach') || checkStr.includes('vacation') || checkStr.includes('hotel') || checkStr.includes('resort')) {
             category = 'travel';
+          } else if (checkStr.includes('medical') || checkStr.includes('hospital') || checkStr.includes('doctor') || checkStr.includes('nurse') || checkStr.includes('clinic') || checkStr.includes('health') || checkStr.includes('therapy') || checkStr.includes('surgery') || checkStr.includes('patient')) {
+            category = 'medical';
+          } else if (checkStr.includes('education') || checkStr.includes('school') || checkStr.includes('university') || checkStr.includes('student') || checkStr.includes('class') || checkStr.includes('learn') || checkStr.includes('study') || checkStr.includes('campus') || checkStr.includes('library')) {
+            category = 'education';
+          } else if (checkStr.includes('estate') || checkStr.includes('house') || checkStr.includes('apartment') || checkStr.includes('villa') || checkStr.includes('building') || checkStr.includes('construction') || checkStr.includes('property') || checkStr.includes('architecture') || checkStr.includes('home')) {
+            category = 'realestate';
+          } else if (checkStr.includes('car') || checkStr.includes('vehicle') || checkStr.includes('automobile') || checkStr.includes('drive') || checkStr.includes('motor') || checkStr.includes('engine') || checkStr.includes('wheel')) {
+            category = 'automobile';
+          } else if (checkStr.includes('beauty') || checkStr.includes('salon') || checkStr.includes('spa') || checkStr.includes('cosmetics') || checkStr.includes('make') || checkStr.includes('hair') || checkStr.includes('grooming') || checkStr.includes('skin')) {
+            category = 'beauty';
+          } else if (checkStr.includes('pet') || checkStr.includes('animal') || checkStr.includes('dog') || checkStr.includes('cat') || checkStr.includes('vet') || checkStr.includes('veterinary') || checkStr.includes('canine')) {
+            category = 'petcare';
+          } else if (checkStr.includes('shop') || checkStr.includes('store') || checkStr.includes('retail') || checkStr.includes('ecommerce') || checkStr.includes('product') || checkStr.includes('cart') || checkStr.includes('checkout') || checkStr.includes('packaging')) {
+            category = 'ecommerce';
           } else if (checkStr.includes('portfolio') || checkStr.includes('agency') || checkStr.includes('designer') || checkStr.includes('studio') || checkStr.includes('creative') || checkStr.includes('minimalist') || checkStr.includes('design') || checkStr.includes('aesthetic') || checkStr.includes('banner')) {
             category = 'fallback';
           }
@@ -296,13 +353,131 @@ const injectEditableScript = (
 
       // Apply theme tint styles
       let tintStyle = '';
-      if (themeTint === 'emerald-tint') {
+      if (themeTint === 'emerald' || themeTint === 'emerald-tint') {
         tintStyle = \`
+          body {
+            background-color: #022c22 !important;
+            color: #f0fdf4 !important;
+          }
+          .bg-slate-950, .bg-black, .bg-zinc-950, .bg-neutral-950 {
+            background-color: #064e3b !important;
+          }
+          .border-slate-900, .border-slate-800, .border-neutral-900, .border-white/10 {
+            border-color: rgba(16, 185, 129, 0.15) !important;
+          }
           body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+            background: radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 9999;
+          }
+        \`;
+      } else if (themeTint === 'midnight') {
+        tintStyle = \`
+          body {
+            background-color: #020617 !important;
+            color: #f8fafc !important;
+          }
+          .bg-slate-950, .bg-black, .bg-zinc-950, .bg-neutral-950 {
+            background-color: #0f172a !important;
+          }
+          .border-slate-900, .border-slate-800, .border-neutral-900, .border-white/10 {
+            border-color: rgba(255, 255, 255, 0.05) !important;
+          }
+          body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 9999;
+          }
+        \`;
+      } else if (themeTint === 'ocean') {
+        tintStyle = \`
+          body {
+            background-color: #030712 !important;
+            color: #f0f9ff !important;
+          }
+          .bg-slate-950, .bg-black, .bg-zinc-950, .bg-neutral-950 {
+            background-color: #07152b !important;
+          }
+          .border-slate-900, .border-slate-800, .border-neutral-900, .border-white/10 {
+            border-color: rgba(14, 165, 233, 0.15) !important;
+          }
+          body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 90% 10%, rgba(14, 165, 233, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 9999;
+          }
+        \`;
+      } else if (themeTint === 'royal-blue') {
+        tintStyle = \`
+          body {
+            background-color: #0a0f1d !important;
+            color: #e0e7ff !important;
+          }
+          .bg-slate-950, .bg-black, .bg-zinc-950, .bg-neutral-950 {
+            background-color: #111827 !important;
+          }
+          .border-slate-900, .border-slate-800, .border-neutral-900, .border-white/10 {
+            border-color: rgba(99, 102, 241, 0.15) !important;
+          }
+        \`;
+      } else if (themeTint === 'minimal-white') {
+        tintStyle = \`
+          body {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+          }
+          .bg-slate-950, .bg-black, .bg-zinc-950, .bg-neutral-950 {
+            background-color: #f8fafc !important;
+          }
+          .text-white, .text-neutral-100, .text-slate-100 {
+            color: #0f172a !important;
+          }
+          .text-neutral-400, .text-slate-400 {
+            color: #475569 !important;
+          }
+          .border-slate-900, .border-slate-800, .border-neutral-900, .border-white/5, .border-white/10 {
+            border-color: #e2e8f0 !important;
+          }
+        \`;
+      } else if (themeTint === 'luxury-black') {
+        tintStyle = \`
+          body {
+            background-color: #000000 !important;
+            color: #f5f5f7 !important;
+          }
+          .bg-slate-950, .bg-black, .bg-zinc-950, .bg-neutral-950 {
+            background-color: #0a0a0a !important;
+          }
+          .border-slate-900, .border-slate-800, .border-neutral-900, .border-white/10 {
+            border-color: #171717 !important;
+          }
+        \`;
+      } else if (themeTint === 'cyber') {
+        tintStyle = \`
+          body {
+            background-color: #050505 !important;
+            color: #00ffcc !important;
+          }
+          .bg-slate-950, .bg-black, .bg-zinc-950, .bg-neutral-950 {
+            background-color: #0d0d0d !important;
+          }
+          .border-slate-900, .border-slate-800, .border-neutral-900, .border-white/10 {
+            border-color: #00ffcc !important;
+          }
+          body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 0, 128, 0.05) 0%, transparent 70%);
             pointer-events: none;
             z-index: 9999;
           }
@@ -318,7 +493,7 @@ const injectEditableScript = (
             z-index: 9999;
           }
         \`;
-      } else if (themeTint === 'obsidian') {
+      } else {
         tintStyle = \`
           body {
             background-color: #050507 !important;
@@ -334,8 +509,12 @@ const injectEditableScript = (
 
       layoutStyle.innerHTML = \`
         \${fontImport}
-        body {
+        html, body {
           \${fontFamilyRule}
+          overflow-y: auto !important;
+          overflow-x: hidden !important;
+          height: auto !important;
+          min-height: 100vh !important;
         }
         /* Spacing Padding overrides */
         section, header, footer, .py-12, .py-16, .py-20, .py-24, .py-32 {
@@ -374,45 +553,113 @@ const injectEditableScript = (
             e.data.font !== undefined ? e.data.font : initialFont,
             e.data.themeTint !== undefined ? e.data.themeTint : initialThemeTint
           );
+        } else if (e.data && e.data.type === 'UPDATE_IMAGE') {
+          const targetImg = document.querySelector("img[data-antigravity-img-idx='" + e.data.index + "']");
+          if (targetImg) {
+            targetImg.setAttribute('src', e.data.src);
+            if (e.data.alt !== undefined) {
+              targetImg.setAttribute('alt', e.data.alt);
+            }
+            setTimeout(() => {
+              const cleanHtml = '<!DOCTYPE html>\\n' + document.documentElement.outerHTML;
+              window.parent.postMessage({ type: 'HTML_CHANGED', html: cleanHtml }, '*');
+            }, 50);
+          }
         }
       });
 
-      const selectors = 'h1, h2, h3, h4, h5, h6, p, span, li, a, button';
-      const elements = document.querySelectorAll(selectors);
-      elements.forEach(el => {
-        if (el.tagName === 'A' && el.querySelector('svg, img')) return;
-        if (el.tagName === 'BUTTON' && el.querySelector('svg, img')) return;
-        
-        el.setAttribute('contenteditable', 'true');
-        el.style.transition = 'outline 0.15s ease-in-out, box-shadow 0.15s ease-in-out';
-        
-        el.addEventListener('mouseenter', () => {
-          if (document.activeElement !== el) {
-            el.style.outline = '1px dashed #6366f1';
-            el.style.outlineOffset = '2px';
+
+
+      const links = document.querySelectorAll('a');
+      links.forEach(link => {
+        link.addEventListener('click', (e) => {
+          const href = link.getAttribute('href');
+          if (href && href.endsWith('.html')) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.parent.postMessage({
+              type: 'PAGE_NAVIGATED',
+              path: href
+            }, '*');
           }
         });
-        
-        el.addEventListener('mouseleave', () => {
-          if (document.activeElement !== el) {
-            el.style.outline = 'none';
-          }
-        });
-        
-        el.addEventListener('focus', () => {
-          el.style.outline = '2px solid #6366f1';
-          el.style.outlineOffset = '2px';
-        });
-        
-        el.addEventListener('blur', () => {
-          el.style.outline = 'none';
-          el.style.outlineOffset = '';
-          el.style.transition = '';
+      });
+
+      // --- Intercept Form Submissions dynamically ---
+      const forms = document.querySelectorAll('form');
+      forms.forEach(form => {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          e.stopPropagation();
           
-          setTimeout(() => {
-            const cleanHtml = '<!DOCTYPE html>\\n' + document.documentElement.outerHTML;
-            window.parent.postMessage({ type: 'HTML_CHANGED', html: cleanHtml }, '*');
-          }, 50);
+          const action = form.getAttribute('action') || '';
+          const method = (form.getAttribute('method') || 'POST').toUpperCase();
+          const formData = new FormData(form);
+          const data = {};
+          formData.forEach((value, key) => {
+            data[key] = value;
+          });
+
+          // Show loading state on the button
+          const submitBtn = form.querySelector('[type="submit"]') || form.querySelector('button');
+          const originalBtnText = submitBtn ? submitBtn.innerHTML : 'Submit';
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Loading...';
+          }
+
+          // Let's create an inline success or error toast/alert element
+          let alertBox = form.querySelector('.antigravity-form-alert');
+          if (!alertBox) {
+            alertBox = document.createElement('div');
+            alertBox.className = 'antigravity-form-alert text-xs mt-3 p-3 rounded-lg border hidden';
+            alertBox.style.cssText = 'padding: 12px; font-size: 12px; margin-top: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background-color: rgba(0,0,0,0.4);';
+            form.appendChild(alertBox);
+          } else {
+            alertBox.style.display = 'none';
+          }
+
+          try {
+            let responseData;
+            let ok = false;
+            
+            // Support local auth sandbox APIs or mock any other actions
+            const isLocalAuth = action.includes('/api/auth/login') || action.includes('/api/auth/signup');
+            const fetchUrl = isLocalAuth ? action : '/api/auth/login';
+            
+            const res = await fetch(fetchUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(data)
+            });
+            ok = res.ok;
+            responseData = await res.json().catch(() => ({}));
+            
+            alertBox.style.display = 'block';
+            if (ok) {
+              alertBox.style.borderColor = 'rgba(16, 185, 129, 0.3)';
+              alertBox.style.backgroundColor = 'rgba(4, 120, 87, 0.15)';
+              alertBox.style.color = '#34d399';
+              alertBox.innerHTML = '✦ Success: ' + (responseData.message || 'Submission completed successfully!');
+              form.reset();
+            } else {
+              alertBox.style.borderColor = 'rgba(239, 68, 68, 0.3)';
+              alertBox.style.backgroundColor = 'rgba(185, 28, 28, 0.15)';
+              alertBox.style.color = '#f87171';
+              alertBox.innerHTML = '⚠️ Error: ' + (responseData.error || 'Failed to submit form.');
+            }
+          } catch (fetchErr) {
+            alertBox.style.display = 'block';
+            alertBox.style.borderColor = 'rgba(239, 68, 68, 0.3)';
+            alertBox.style.backgroundColor = 'rgba(185, 28, 28, 0.15)';
+            alertBox.style.color = '#f87171';
+            alertBox.innerHTML = '⚠️ Error: Connection request failed.';
+          } finally {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = originalBtnText;
+            }
+          }
         });
       });
     }
@@ -433,14 +680,7 @@ const injectEditableScript = (
   }
 };
 
-// Strips the editing script and contenteditable properties to return perfect clean output
-const cleanExportHtml = (html: string) => {
-  if (!html) return '';
-  let clean = html.replace(/<script id="antigravity-img-fallback">[\s\S]*?<\/script>/gi, '');
-  clean = clean.replace(/<script>\s*\(function\(\)\s*\{\s*const\s+initialDarkMode[\s\S]*?<\/script>/gi, '');
-  clean = clean.replace(/\s*contenteditable="true"/gi, '');
-  return clean.trim();
-};
+
 
 export default function WebsiteBuilder() {
   const router = useRouter();
@@ -467,6 +707,12 @@ export default function WebsiteBuilder() {
   const [selectedFont, setSelectedFont] = useState<string>('sans');
   const [selectedThemeTint, setSelectedThemeTint] = useState<string>('obsidian');
 
+  // Image Customizer states
+  const [selectedImgIndex, setSelectedImgIndex] = useState<number | null>(null);
+  const [selectedImgSrc, setSelectedImgSrc] = useState<string>('');
+  const [selectedImgAlt, setSelectedImgAlt] = useState<string>('');
+  const [unsplashKeyword, setUnsplashKeyword] = useState<string>('');
+
   // Sidebar Refinement states
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const [refinePrompt, setRefinePrompt] = useState('');
@@ -476,6 +722,64 @@ export default function WebsiteBuilder() {
   const [savedProjects, setSavedProjects] = useState<SavedProject[]>([]);
   const [currentProjectId, setCurrentProjectId] = useState<string | null>(null);
   const [showProjectsDrawer, setShowProjectsDrawer] = useState(false);
+  const [showExportDropdown, setShowExportDropdown] = useState(false);
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+
+  // Multi-page Site states
+  const [pages, setPages] = useState<Array<{ name: string; path: string; html: string }>>([
+    { name: 'Home', path: 'index.html', html: '' }
+  ]);
+  const [activePagePath, setActivePagePath] = useState<string>('index.html');
+
+  // Deployment states
+  const [showDeployModal, setShowDeployModal] = useState(false);
+  const [isDeploying, setIsDeploying] = useState(false);
+  const [netlifyToken, setNetlifyToken] = useState('');
+  const [deployedLocalUrl, setDeployedLocalUrl] = useState('');
+  const [deployedLiveUrl, setDeployedLiveUrl] = useState('');
+  const [deployError, setDeployError] = useState<string | null>(null);
+
+  // Undo/Redo stack history states
+  const [undoStack, setUndoStack] = useState<Array<{ html: string; pages: Array<{ name: string; path: string; html: string }> }>>([]);
+  const [redoStack, setRedoStack] = useState<Array<{ html: string; pages: Array<{ name: string; path: string; html: string }> }>>([]);
+  const [showDiffModal, setShowDiffModal] = useState(false);
+  const [diffOriginalText, setDiffOriginalText] = useState('');
+  const [diffModifiedText, setDiffModifiedText] = useState('');
+
+  const executeUndo = () => {
+    if (undoStack.length === 0) return;
+    const current = { html: generatedHtml, pages: [...pages] };
+    const prev = undoStack[undoStack.length - 1];
+    setUndoStack(undoStack.slice(0, -1));
+    setRedoStack(r => [...r, current]);
+    setGeneratedHtml(prev.html);
+    setPages(prev.pages);
+    
+    const active = prev.pages.find(p => p.path === activePagePath);
+    if (active) {
+      setGeneratedHtml(active.html);
+    }
+  };
+
+  const executeRedo = () => {
+    if (redoStack.length === 0) return;
+    const current = { html: generatedHtml, pages: [...pages] };
+    const next = redoStack[redoStack.length - 1];
+    setRedoStack(redoStack.slice(0, -1));
+    setUndoStack(u => [...u, current]);
+    setGeneratedHtml(next.html);
+    setPages(next.pages);
+
+    const active = next.pages.find(p => p.path === activePagePath);
+    if (active) {
+      setGeneratedHtml(active.html);
+    }
+  };
+
+  const pushStateToUndo = (html: string, currentPages: typeof pages) => {
+    setUndoStack(prev => [...prev, { html, pages: currentPages }]);
+    setRedoStack([]);
+  };
 
   // Speech Recognition states
   const [isListening, setIsListening] = useState(false);
@@ -485,48 +789,81 @@ export default function WebsiteBuilder() {
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  // Save/Update projects inside LocalStorage
-  const saveProject = (html: string, originalPrompt: string, idToUpdate?: string | null, activeHistory?: ChatMessage[]) => {
+  // Save/Update projects inside SQLite database via API
+  const saveProject = async (
+    htmlContent: string, 
+    originalPrompt: string, 
+    idToUpdate?: string | null, 
+    activeHistory?: ChatMessage[],
+    updatedPagesList?: Array<{ name: string; path: string; html: string }>
+  ) => {
     try {
-      const projectsJson = localStorage.getItem('antigravity_projects');
-      let projects: SavedProject[] = projectsJson ? JSON.parse(projectsJson) : [];
-      
+      const token = localStorage.getItem('antigravity_token');
+      if (!token) return;
+
       const historyToSave = activeHistory || [];
 
-      if (idToUpdate) {
-        projects = projects.map(p => {
-          if (p.id === idToUpdate) {
-            return {
-              ...p,
-              html: html,
-              chatHistory: historyToSave,
-              timestamp: Date.now()
-            };
-          }
-          return p;
-        });
-      } else {
-        let title = originalPrompt.trim().split(' ').slice(0, 5).join(' ');
-        if (title.length > 30) title = title.substring(0, 30) + '...';
-        
-        const newId = Math.random().toString(36).substring(2, 9);
-        const newProject: SavedProject = {
-          id: newId,
-          title: title || 'Untitled Project',
-          prompt: originalPrompt,
-          html: html,
-          chatHistory: historyToSave,
-          timestamp: Date.now()
-        };
-        projects.unshift(newProject);
-        setCurrentProjectId(newId);
-        idToUpdate = newId;
-      }
+      // Determine the list of pages to send
+      let pagesToSend = updatedPagesList || pages;
       
-      localStorage.setItem('antigravity_projects', JSON.stringify(projects));
-      setSavedProjects(projects);
+      // Update the active page HTML content inside the pages array if we are passing new HTML
+      if (htmlContent) {
+        pagesToSend = pagesToSend.map(p => 
+          p.path === activePagePath ? { ...p, html: htmlContent } : p
+        );
+      }
+
+      const payload = {
+        id: idToUpdate || undefined,
+        title: originalPrompt.trim().split(' ').slice(0, 5).join(' '),
+        prompt: originalPrompt,
+        pages: pagesToSend,
+        chatHistory: historyToSave
+      };
+
+      const response = await fetch('/api/projects', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          localStorage.removeItem('antigravity_token');
+          localStorage.removeItem('antigravity_user_email');
+          window.location.href = '/';
+          return;
+        }
+        throw new Error('Failed to save project to server');
+      }
+
+      const resData = await response.json();
+      const savedProj = resData.project as SavedProject;
+
+      // Sync local pages state
+      if (savedProj.pages) {
+        setPages(savedProj.pages);
+      }
+
+      // Update local state list
+      setSavedProjects(prev => {
+        const exists = prev.some(p => p.id === savedProj.id);
+        if (exists) {
+          return prev.map(p => p.id === savedProj.id ? savedProj : p);
+        } else {
+          return [savedProj, ...prev];
+        }
+      });
+
+      if (!idToUpdate) {
+        setCurrentProjectId(savedProj.id);
+      }
     } catch (e) {
       console.error('Failed to save project:', e);
+      setError('Connection Alert: Failed to sync changes with SQLite database.');
     }
   };
 
@@ -671,19 +1008,38 @@ export default function WebsiteBuilder() {
     };
   }, []);
 
-  // Load projects from local storage on mount
+  // Load projects from SQLite database on mount or auth shift
   useEffect(() => {
-    try {
-      const projectsJson = localStorage.getItem('antigravity_projects');
-      if (projectsJson) {
-        setTimeout(() => {
-          setSavedProjects(JSON.parse(projectsJson));
-        }, 0);
+    if (!isAuthenticated) return;
+
+    const fetchProjects = async () => {
+      try {
+        const token = localStorage.getItem('antigravity_token');
+        if (!token) return;
+
+        const response = await fetch('/api/projects', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (!response.ok) {
+          if (response.status === 401) {
+            localStorage.removeItem('antigravity_token');
+            localStorage.removeItem('antigravity_user_email');
+            window.location.href = '/';
+          }
+          return;
+        }
+        const data = await response.json();
+        setSavedProjects(data);
+      } catch (e) {
+        console.error('Failed to load projects from server:', e);
       }
-    } catch (e) {
-      console.error('Failed to load projects:', e);
-    }
-  }, []);
+    };
+
+    fetchProjects();
+  }, [isAuthenticated]);
 
   // Auto-hide warning toast after 8 seconds
   useEffect(() => {
@@ -693,11 +1049,12 @@ export default function WebsiteBuilder() {
     }
   }, [showKeyWarning]);
 
-  // Synchronize Live editable text updates back into parent React state
+  // Synchronize Live editable updates back into parent React state
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
       if (event.data && event.data.type === 'HTML_CHANGED') {
         const updatedHtml = event.data.html;
+        pushStateToUndo(generatedHtml, pages);
         setGeneratedHtml(current => {
           setCodeHistory(prev => [...prev, current]);
           return updatedHtml;
@@ -706,12 +1063,25 @@ export default function WebsiteBuilder() {
         if (currentProjectId) {
           saveProject(updatedHtml, prompt, currentProjectId, chatHistory);
         }
+      } else if (event.data && event.data.type === 'IMAGE_CLICKED') {
+        setSelectedImgIndex(event.data.index);
+        setSelectedImgSrc(event.data.src);
+        setSelectedImgAlt(event.data.alt);
+      } else if (event.data && event.data.type === 'PAGE_NAVIGATED') {
+        const targetPath = event.data.path;
+        const targetPage = pages.find(p => p.path === targetPath);
+        if (targetPage) {
+          setActivePagePath(targetPath);
+          setGeneratedHtml(targetPage.html);
+        } else {
+          generateSubpage(targetPath);
+        }
       }
     };
     
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
-  }, [currentProjectId, prompt, chatHistory]);
+  }, [currentProjectId, prompt, chatHistory, pages, activePagePath]);
 
   // Post real-time theme shifts (Dark/Light and Color Accents) directly to the iframe
   useEffect(() => {
@@ -731,15 +1101,25 @@ export default function WebsiteBuilder() {
 
   // saveProject declaration was moved to states section above
 
-  // Delete a project from history
-  const deleteProject = (id: string, e: React.MouseEvent) => {
+  // Delete a project from database
+  const deleteProject = async (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
     try {
-      const projectsJson = localStorage.getItem('antigravity_projects');
-      let projects: SavedProject[] = projectsJson ? JSON.parse(projectsJson) : [];
-      projects = projects.filter(p => p.id !== id);
-      localStorage.setItem('antigravity_projects', JSON.stringify(projects));
-      setSavedProjects(projects);
+      const token = localStorage.getItem('antigravity_token');
+      if (!token) return;
+
+      const response = await fetch(`/api/projects?id=${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete project from server');
+      }
+
+      setSavedProjects(prev => prev.filter(p => p.id !== id));
       
       if (currentProjectId === id) {
         setGeneratedHtml('');
@@ -748,20 +1128,90 @@ export default function WebsiteBuilder() {
       }
     } catch (err) {
       console.error('Failed to delete project:', err);
+      setError('Connection Alert: Failed to delete project from SQLite database.');
     }
   };
 
   // Select a past project
   const loadProject = (project: SavedProject) => {
-    setGeneratedHtml(project.html);
+    const projectPages = project.pages || [
+      { name: 'Home', path: 'index.html', html: project.html }
+    ];
+    setPages(projectPages);
+    const activePage = projectPages.find(p => p.path === 'index.html') || projectPages[0];
+    const activePath = activePage ? activePage.path : 'index.html';
+    const activeHtml = activePage ? activePage.html : '';
+
+    setActivePagePath(activePath);
+    setGeneratedHtml(activeHtml);
     setPrompt(project.prompt);
     setCurrentProjectId(project.id);
     setChatHistory(project.chatHistory || [
       { role: 'user', parts: [{ text: `Create a landing page for: ${project.prompt}` }] },
-      { role: 'model', parts: [{ text: project.html }] }
+      { role: 'model', parts: [{ text: activeHtml }] }
     ]);
     setShowProjectsDrawer(false);
     setGenerationCount(prev => prev + 1);
+  };
+
+  // Post image source updates back into the iframe
+  const handleApplyImage = () => {
+    if (selectedImgIndex === null || !iframeRef.current || !iframeRef.current.contentWindow) return;
+    
+    let finalSrc = selectedImgSrc.trim();
+    if (unsplashKeyword.trim()) {
+      const keywordEncoded = encodeURIComponent(unsplashKeyword.trim().toLowerCase());
+      finalSrc = `https://images.unsplash.com/featured/?${keywordEncoded}`;
+    }
+
+    iframeRef.current.contentWindow.postMessage({
+      type: 'UPDATE_IMAGE',
+      index: selectedImgIndex,
+      src: finalSrc,
+      alt: selectedImgAlt
+    }, '*');
+
+    // Reset editor panel state
+    setSelectedImgIndex(null);
+    setSelectedImgSrc('');
+    setSelectedImgAlt('');
+    setUnsplashKeyword('');
+  };
+
+  const processImageFile = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const base64Url = event.target?.result as string;
+      if (base64Url) {
+        setSelectedImgSrc(base64Url);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleImageFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      processImageFile(file);
+    }
+  };
+
+  const handleImagePaste = (e: React.ClipboardEvent) => {
+    const item = e.clipboardData.items?.[0];
+    if (item && item.type.startsWith('image/')) {
+      const file = item.getAsFile();
+      if (file) {
+        processImageFile(file);
+      }
+    }
+  };
+
+  const handleImageDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files?.[0];
+    if (file && file.type.startsWith('image/')) {
+      processImageFile(file);
+    }
   };
 
   // Initial generation submission
@@ -785,7 +1235,18 @@ export default function WebsiteBuilder() {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ prompt }),
+        body: JSON.stringify({ 
+          prompt,
+          themeSettings: {
+            darkMode: previewDarkMode,
+            accent: selectedAccent,
+            padding: spacingPadding,
+            gap: spacingGap,
+            radius: cornerRadius,
+            font: selectedFont,
+            themeTint: selectedThemeTint
+          }
+        }),
       });
 
       if (!response.ok) {
@@ -794,6 +1255,10 @@ export default function WebsiteBuilder() {
       }
 
       const htmlContent = await response.text();
+      const initialPages = [{ name: 'Home', path: 'index.html', html: htmlContent }];
+      setPages(initialPages);
+      setActivePagePath('index.html');
+
       setGeneratedHtml(current => {
         setCodeHistory(prev => [...prev, current]);
         return htmlContent;
@@ -806,7 +1271,7 @@ export default function WebsiteBuilder() {
       ];
       setChatHistory(initialHistory);
 
-      saveProject(htmlContent, prompt, null, initialHistory);
+      saveProject(htmlContent, prompt, null, initialHistory, initialPages);
 
       const fallbackHeader = response.headers.get('X-Generated-Fallback');
       if (fallbackHeader === 'true') {
@@ -816,6 +1281,67 @@ export default function WebsiteBuilder() {
       console.error(err);
       const errorMessage = err instanceof Error ? err.message : 'An error occurred while compiling your site. Please check your network and configuration.';
       setError(errorMessage);
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  const generateSubpage = async (
+    pagePath: string, 
+    customName?: string, 
+    existingPages?: Array<{ name: string; path: string; html: string }>
+  ) => {
+    setIsGenerating(true);
+    setError(null);
+    try {
+      const activePages = existingPages || pages;
+      const pageName = customName || pagePath.replace('.html', '').split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+      
+      const homePage = activePages.find(p => p.path === 'index.html') || activePages[0];
+      const homeHtml = homePage ? homePage.html : '';
+
+      const token = localStorage.getItem('antigravity_token');
+      
+      const response = await fetch('/api/generate-site', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ 
+          prompt: `For the website "${prompt}", generate the subpage "${pageName}" (file path: "${pagePath}"). Replicate the layout styles, header navigation, and footer from this home page: \n\n ${homeHtml} \n\n but change the body section elements to match the "${pageName}" page contents.`,
+          themeSettings: {
+            darkMode: previewDarkMode,
+            accent: selectedAccent,
+            padding: spacingPadding,
+            gap: spacingGap,
+            radius: cornerRadius,
+            font: selectedFont,
+            themeTint: selectedThemeTint
+          }
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to generate subpage via AI');
+      }
+
+      const subpageHtml = await response.text();
+      const newPage = { name: pageName, path: pagePath, html: subpageHtml };
+      const pageExists = activePages.some(p => p.path === pagePath);
+      const newPages = pageExists
+        ? activePages.map(p => p.path === pagePath ? newPage : p)
+        : [...activePages, newPage];
+      
+      pushStateToUndo(generatedHtml, pages);
+      setPages(newPages);
+      setActivePagePath(pagePath);
+      setGeneratedHtml(subpageHtml);
+      
+      saveProject(subpageHtml, prompt, currentProjectId, chatHistory, newPages);
+    } catch (err: any) {
+      console.error(err);
+      setError(`Failed to automatically generate subpage: ${err.message}`);
     } finally {
       setIsGenerating(false);
     }
@@ -862,7 +1388,16 @@ export default function WebsiteBuilder() {
         },
         body: JSON.stringify({
           prompt: promptToSend,
-          history: formattedHistory
+          history: formattedHistory,
+          themeSettings: {
+            darkMode: previewDarkMode,
+            accent: selectedAccent,
+            padding: spacingPadding,
+            gap: spacingGap,
+            radius: cornerRadius,
+            font: selectedFont,
+            themeTint: selectedThemeTint
+          }
         }),
       });
 
@@ -962,6 +1497,63 @@ export default function WebsiteBuilder() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  const exportReactComponent = () => {
+    if (!generatedHtml) return;
+    const cleanHtml = cleanExportHtml(generatedHtml);
+    const reactComponentCode = convertHtmlToReact(cleanHtml);
+    const blob = new Blob([reactComponentCode], { type: 'text/typescript;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'GeneratedPage.tsx');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleDeploy = async () => {
+    setIsDeploying(true);
+    setDeployError(null);
+    setDeployedLocalUrl('');
+    setDeployedLiveUrl('');
+
+    try {
+      const token = localStorage.getItem('antigravity_token');
+      if (!token) throw new Error('Unauthorized');
+
+      // Make sure we have the latest visual changes in the active page object
+      const currentPagesList = pages.map(p => 
+        p.path === activePagePath ? { ...p, html: generatedHtml } : p
+      );
+
+      const response = await fetch('/api/deploy', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          pages: currentPagesList,
+          netlifyToken: netlifyToken.trim() || undefined
+        })
+      });
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.error || 'Failed to deploy the site.');
+      }
+
+      const resData = await response.json();
+      setDeployedLocalUrl(resData.localUrl || '');
+      setDeployedLiveUrl(resData.liveUrl || '');
+    } catch (err: any) {
+      console.error(err);
+      setDeployError(err.message || 'An error occurred during deployment.');
+    } finally {
+      setIsDeploying(false);
+    }
   };
 
   const handleLogout = () => {
@@ -1064,29 +1656,169 @@ export default function WebsiteBuilder() {
                 />
               </div>
 
+              {/* Undo/Redo State Controls */}
+              <div className="flex items-center space-x-1.5 bg-[#050507] border border-white/5 p-1 rounded-lg h-8">
+                <button
+                  type="button"
+                  onClick={executeUndo}
+                  disabled={undoStack.length === 0}
+                  className="p-1 rounded-md text-neutral-450 hover:text-slate-100 disabled:opacity-30 disabled:hover:text-neutral-450 transition-colors cursor-pointer border-none bg-transparent"
+                  title="Undo last change"
+                >
+                  <Undo className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={executeRedo}
+                  disabled={redoStack.length === 0}
+                  className="p-1 rounded-md text-neutral-450 hover:text-slate-100 disabled:opacity-30 disabled:hover:text-neutral-450 transition-colors cursor-pointer border-none bg-transparent"
+                  title="Redo undone change"
+                >
+                  <Undo className="w-3.5 h-3.5 rotate-180" />
+                </button>
+              </div>
+
+              {/* Diff Viewer Trigger */}
               <button
-                onClick={exportHtml}
-                className="h-8 px-3.5 rounded-lg bg-[#050507] border border-white/5 hover:border-emerald-500/50 hover:bg-emerald-950/20 text-neutral-100 font-medium text-[10px] flex items-center justify-center space-x-1.5 transition-all shadow-sm cursor-pointer"
+                type="button"
+                onClick={() => {
+                  const homePage = pages.find(p => p.path === 'index.html');
+                  setDiffOriginalText(homePage ? homePage.html : '');
+                  setDiffModifiedText(generatedHtml);
+                  setShowDiffModal(true);
+                }}
+                className="h-8 px-3 rounded-lg bg-[#050507] border border-white/5 hover:border-slate-500 hover:bg-[#121214] text-neutral-350 font-medium text-[10px] flex items-center justify-center space-x-1 transition-all shadow-sm cursor-pointer"
+                title="Compare visual layout differences"
               >
-                <Download className="w-3.5 h-3.5 text-emerald-455" />
-                <span>Export</span>
+                <Code2 className="w-3.5 h-3.5 text-indigo-400" />
+                <span>Diff</span>
+              </button>
+
+              <div className="relative">
+                <button
+                  onClick={() => setShowExportDropdown(prev => !prev)}
+                  className="h-8 px-3 rounded-lg bg-[#050507] border border-white/5 hover:border-emerald-500/50 hover:bg-emerald-950/20 text-neutral-100 font-medium text-[10px] flex items-center justify-center space-x-1 transition-all shadow-sm cursor-pointer"
+                >
+                  <Download className="w-3.5 h-3.5 text-emerald-455" />
+                  <span>Export</span>
+                  <ChevronDown className={`w-3.5 h-3.5 text-neutral-500 transition-transform duration-200 ${showExportDropdown ? 'rotate-180' : ''}`} />
+                </button>
+                
+                {showExportDropdown && (
+                  <div className="absolute right-0 mt-1.5 w-44 rounded-xl border border-white/5 bg-[#0C0C0E]/95 backdrop-blur-lg p-1.5 shadow-2xl z-50 flex flex-col space-y-0.5 animate-slide-down">
+                    <button
+                      onClick={() => {
+                        exportHtml();
+                        setShowExportDropdown(false);
+                      }}
+                      className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 text-[10px] text-neutral-350 hover:text-white font-medium transition-colors flex items-center space-x-2 border-none bg-transparent cursor-pointer"
+                    >
+                      <span className="text-emerald-400 font-mono text-[9px] font-bold">HTML</span>
+                      <span>Export Static HTML</span>
+                    </button>
+                    <button
+                      onClick={() => {
+                        exportReactComponent();
+                        setShowExportDropdown(false);
+                      }}
+                      className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 text-[10px] text-neutral-350 hover:text-white font-medium transition-colors flex items-center space-x-2 border-none bg-transparent cursor-pointer"
+                    >
+                      <span className="text-purple-400 font-mono text-[9px] font-bold">TSX</span>
+                      <span>Export React Component</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              <button
+                onClick={() => setShowDeployModal(true)}
+                className="h-8 px-3 rounded-lg bg-indigo-650 hover:bg-indigo-500 hover:shadow-[0_0_15px_rgba(99,102,241,0.4)] text-white font-medium text-[10px] flex items-center justify-center space-x-1.5 transition-all shadow-sm cursor-pointer border-none"
+              >
+                <Globe className="w-3.5 h-3.5 text-indigo-200" />
+                <span>Deploy</span>
               </button>
             </div>
           )}
           
           <div className="h-5 w-px bg-white/5"></div>
 
-          <div className="flex items-center space-x-2">
-            <span className="text-[10px] text-neutral-400 hidden md:inline truncate max-w-[120px] font-normal tracking-tight" title={userEmail}>
-              {userEmail || 'gaurav@1234'}
-            </span>
-            <div className="h-3 w-px bg-neutral-800 hidden md:inline"></div>
+          <div className="relative">
             <button
-              onClick={handleLogout}
-              className="text-[10px] text-neutral-455 hover:text-white transition-opacity duration-150 opacity-75 hover:opacity-100 cursor-pointer border-none bg-transparent p-0 font-medium"
+              onClick={() => setShowProfileDropdown(prev => !prev)}
+              className="flex items-center space-x-2.5 p-1.5 pr-3 rounded-xl border border-white/5 bg-[#050507]/60 hover:bg-[#121214] transition-all cursor-pointer select-none"
             >
-              Logout
+              <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-650 flex items-center justify-center text-white font-bold text-xs shadow-md">
+                {userEmail ? userEmail.charAt(0).toUpperCase() : 'G'}
+              </div>
+              <span className="text-[10px] text-neutral-300 font-medium hidden md:inline truncate max-w-[100px]">
+                {userEmail ? userEmail.split('@')[0] : 'Developer'}
+              </span>
+              <ChevronDown className={`w-3 h-3 text-neutral-500 transition-transform duration-200 ${showProfileDropdown ? 'rotate-180' : ''}`} />
             </button>
+
+            {showProfileDropdown && (
+              <div className="absolute right-0 mt-2 w-64 rounded-2xl border border-white/5 bg-[#0C0C0E]/95 backdrop-blur-xl p-4 shadow-2xl z-50 flex flex-col space-y-4 animate-slide-down">
+                {/* Header profile details */}
+                <div className="flex items-center space-x-3 pb-3 border-b border-white/5">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-650 flex items-center justify-center text-white font-bold text-sm shadow-lg">
+                    {userEmail ? userEmail.charAt(0).toUpperCase() : 'G'}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-bold text-white truncate">
+                      {userEmail ? userEmail.split('@')[0] : 'Developer'}
+                    </p>
+                    <p className="text-[10px] text-neutral-450 truncate" title={userEmail}>
+                      {userEmail || 'developer@antigravity.studio'}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Account badge */}
+                <div className="flex items-center justify-between p-2 rounded-xl bg-purple-950/20 border border-purple-500/10">
+                  <div className="flex items-center space-x-1.5">
+                    <ShieldCheck className="w-3.5 h-3.5 text-purple-400" />
+                    <span className="text-[9px] font-bold text-purple-300 uppercase tracking-wider">Premium Account</span>
+                  </div>
+                  <span className="text-[8px] px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 font-bold font-mono">
+                    PRO
+                  </span>
+                </div>
+
+                {/* Quick actions list */}
+                <div className="flex flex-col space-y-1">
+                  <button
+                    onClick={() => {
+                      setShowProjectsDrawer(true);
+                      setShowProfileDropdown(false);
+                    }}
+                    className="w-full text-left p-2 rounded-lg hover:bg-white/5 text-[10px] text-neutral-450 hover:text-white transition-colors flex items-center space-x-2 border-none bg-transparent cursor-pointer"
+                  >
+                    <History className="w-3.5 h-3.5 text-neutral-500" />
+                    <span>My Saved Projects ({savedProjects.length})</span>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      setShowDeployModal(true);
+                      setShowProfileDropdown(false);
+                    }}
+                    className="w-full text-left p-2 rounded-lg hover:bg-white/5 text-[10px] text-neutral-455 hover:text-white transition-colors flex items-center space-x-2 border-none bg-transparent cursor-pointer"
+                  >
+                    <Globe className="w-3.5 h-3.5 text-neutral-500" />
+                    <span>Deployments Manager</span>
+                  </button>
+                </div>
+
+                {/* Logout button */}
+                <button
+                  onClick={handleLogout}
+                  className="w-full py-2.5 px-3 rounded-xl bg-red-950/20 hover:bg-red-950/40 border border-red-500/10 hover:border-red-500/30 text-red-400 hover:text-red-300 font-bold text-[10px] flex items-center justify-center space-x-2 transition-all cursor-pointer shadow-sm"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                  <span>Sign Out</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </nav>
@@ -1182,6 +1914,25 @@ export default function WebsiteBuilder() {
         {/* LEFT/CENTER AREA: THE CANVAS WORKSPACE */}
         <div className="flex-1 flex flex-col relative overflow-hidden p-6 bg-[#050507]">
           
+          {/* SLIDEOUT OFFLINE FALLBACK BANNER */}
+          {showKeyWarning && (
+            <div className="absolute top-6 left-6 right-6 z-35 rounded-2xl bg-amber-950/70 border border-amber-500/30 backdrop-blur-md p-4 text-amber-200 shadow-2xl flex items-start space-x-3 transition-all animate-slide-down">
+              <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <h4 className="text-sm font-bold text-amber-300">Offline Fallback Engine Triggered</h4>
+                <p className="text-xs text-amber-200/80 mt-1 leading-relaxed">
+                  Gemini API limits/errors occurred. System fell back to the local offline layouts compiler to construct your site layout. Please review your <code className="bg-amber-950/90 px-1 py-0.5 rounded font-mono text-[10px]">GEMINI_API_KEY</code> key inside the <code className="bg-amber-950/90 px-1 py-0.5 rounded font-mono text-[10px]">.env.local</code> configuration file.
+                </p>
+              </div>
+              <button 
+                onClick={() => setShowKeyWarning(false)}
+                className="text-xs text-amber-400 hover:text-amber-200 transition-colors font-semibold cursor-pointer"
+              >
+                Dismiss
+              </button>
+            </div>
+          )}
+
           {/* SLIDEOUT ERROR BANNER */}
           {error && (
             <div className="absolute top-6 left-6 right-6 z-35 rounded-2xl bg-red-955/70 border border-red-500/30 backdrop-blur-md p-4 text-red-200 shadow-2xl flex items-start space-x-3 transition-all animate-slide-down">
@@ -1673,6 +2424,184 @@ export default function WebsiteBuilder() {
               <span className="text-[9px] text-neutral-500 font-mono">Live Sync</span>
             </div>     
 
+            {/* PAGE MANAGER CARD */}
+            {generatedHtml && (
+              <div className="p-4 bg-[#08080A] border border-white/5 rounded-xl space-y-3.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[9px] font-bold text-neutral-400 uppercase tracking-wider block">Page Manager</span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const newPageName = window.prompt("Enter page name (e.g. Pricing, About Us, Features):");
+                      if (!newPageName) return;
+                      const path = newPageName.toLowerCase().replace(/[^a-z0-9]/g, '-') + '.html';
+                      if (pages.some(p => p.path === path)) {
+                        alert("Page path already exists!");
+                        return;
+                      }
+
+                      // Clone the home page content or a simple layout starting point
+                      const homePage = pages.find(p => p.path === 'index.html') || pages[0];
+                      const newPageHtml = homePage ? homePage.html : '<html><body><h1>New Page</h1></body></html>';
+                      
+                      const newPages = [...pages, { name: newPageName, path, html: newPageHtml }];
+                      
+                      const autoGenerate = window.confirm(`Would you like AntiGravity AI to automatically generate custom content and layouts for the "${newPageName}" subpage?`);
+                      if (autoGenerate) {
+                        generateSubpage(path, newPageName, newPages);
+                      } else {
+                        setPages(newPages);
+                        setActivePagePath(path);
+                        setGeneratedHtml(newPageHtml);
+                        if (currentProjectId) {
+                          saveProject(newPageHtml, prompt, currentProjectId, chatHistory, newPages);
+                        }
+                      }
+                    }}
+                    className="text-[9px] text-indigo-400 hover:text-indigo-300 font-bold border-none bg-transparent cursor-pointer flex items-center space-x-1 p-0"
+                  >
+                    <Plus className="w-2.5 h-2.5" />
+                    <span>Add Page</span>
+                  </button>
+                </div>
+
+                <div className="flex items-center space-x-2 bg-[#050507] border border-white/5 p-2 rounded-xl justify-between">
+                  <span className="text-[10px] text-neutral-450">Active:</span>
+                  <select
+                    value={activePagePath}
+                    onChange={(e) => {
+                      const selectedPath = e.target.value;
+                      const page = pages.find(p => p.path === selectedPath);
+                      if (page) {
+                        setActivePagePath(selectedPath);
+                        setGeneratedHtml(page.html);
+                      }
+                    }}
+                    className="bg-transparent text-[10px] text-slate-200 border-none outline-none focus:ring-0 max-w-[140px] cursor-pointer"
+                  >
+                    {pages.map((p) => (
+                      <option key={p.path} value={p.path} className="bg-[#0C0C0E]">
+                        {p.name} ({p.path})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {pages.length > 1 && (
+                  <div className="flex justify-end">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (activePagePath === 'index.html') {
+                          alert("Cannot delete the home page (index.html)!");
+                          return;
+                        }
+                        if (confirm(`Are you sure you want to delete the page "${activePagePath}"?`)) {
+                          const newPages = pages.filter(p => p.path !== activePagePath);
+                          const fallbackPage = newPages.find(p => p.path === 'index.html') || newPages[0];
+                          setPages(newPages);
+                          setActivePagePath(fallbackPage.path);
+                          setGeneratedHtml(fallbackPage.html);
+                          
+                          if (currentProjectId) {
+                            saveProject(fallbackPage.html, prompt, currentProjectId, chatHistory, newPages);
+                          }
+                        }
+                      }}
+                      className="text-[9px] text-red-450 hover:text-red-400 font-medium flex items-center space-x-1 cursor-pointer bg-transparent border-none p-0"
+                    >
+                      <Trash2 className="w-2.5 h-2.5" />
+                      <span>Delete Current Page</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* IMAGE EDITOR CONTEXT CARD */}
+            {selectedImgIndex !== null && (
+              <div className="p-4.5 rounded-xl border border-purple-500/20 bg-purple-950/10 space-y-3.5 animate-slide-down">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold text-purple-300 uppercase tracking-widest flex items-center space-x-1.5">
+                    <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
+                    <span>Image Editor (Active)</span>
+                  </span>
+                  <button 
+                    type="button"
+                    onClick={() => {
+                      setSelectedImgIndex(null);
+                      setUnsplashKeyword('');
+                    }}
+                    className="text-[10px] text-neutral-500 hover:text-white cursor-pointer font-bold border-none bg-transparent p-0"
+                  >
+                    Cancel
+                  </button>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="space-y-1">
+                    <label className="text-[9px] font-semibold text-neutral-455 uppercase block">Custom URL</label>
+                    <input
+                      type="text"
+                      value={selectedImgSrc}
+                      onChange={(e) => setSelectedImgSrc(e.target.value)}
+                      placeholder="https://example.com/photo.jpg"
+                      className="w-full rounded-lg bg-[#050507] border border-white/5 p-2 text-[10px] text-slate-200 placeholder-neutral-700 focus:outline-none focus:border-purple-500 transition-all font-sans"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[9px] font-semibold text-neutral-455 uppercase block">Unsplash search</label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={unsplashKeyword}
+                        onChange={(e) => setUnsplashKeyword(e.target.value)}
+                        placeholder="e.g. coffee shop cup, fitness barbell"
+                        className="w-full rounded-lg bg-[#050507] border border-white/5 p-2 pr-16 text-[10px] text-slate-200 placeholder-neutral-700 focus:outline-none focus:border-purple-500 transition-all font-sans"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleApplyImage}
+                        disabled={!selectedImgSrc.trim() && !unsplashKeyword.trim()}
+                        className="absolute right-1 top-1 bottom-1 px-2.5 rounded bg-purple-650 hover:bg-purple-500 hover:scale-[1.01] active:scale-[0.99] text-white text-[9px] font-bold transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed border border-transparent"
+                      >
+                        Apply
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Local Image Upload / Drop / Paste zone */}
+                  <div className="space-y-1">
+                    <label className="text-[9px] font-semibold text-neutral-455 uppercase block">Local Image (Upload / Paste)</label>
+                    <div 
+                      onDragOver={(e) => e.preventDefault()}
+                      onDrop={handleImageDrop}
+                      onPaste={handleImagePaste}
+                      className="border border-dashed border-white/10 rounded-lg p-3 text-center bg-[#050507] hover:border-purple-500/50 hover:bg-purple-950/5 transition-all cursor-pointer relative group flex flex-col items-center justify-center space-y-1"
+                    >
+                      <Upload className="w-5 h-5 text-neutral-500 group-hover:text-purple-400 transition-colors" />
+                      <span className="text-[9px] text-neutral-400 group-hover:text-neutral-250">
+                        Drag file, paste image, or <span className="text-purple-400 underline font-semibold">browse</span>
+                      </span>
+                      <input 
+                        type="file" 
+                        accept="image/*"
+                        onChange={handleImageFileSelect}
+                        className="absolute inset-0 opacity-0 cursor-pointer"
+                      />
+                    </div>
+                    
+                    {selectedImgSrc && selectedImgSrc.startsWith('data:') && (
+                      <span className="text-[8px] text-emerald-400 block font-semibold animate-pulse mt-1">
+                        ✓ Local Image Loaded (Ready to Apply)
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Accent selection (Color Palette) */}
             <div className="space-y-1.5">
               <span className="text-[9px] font-bold text-neutral-505 uppercase tracking-wider block">Accent Palette</span>
@@ -1740,7 +2669,13 @@ export default function WebsiteBuilder() {
                     className="w-full appearance-none bg-[#0C0C0E]/95 border border-white/5 rounded-xl px-2.5 py-1.5 text-[9px] font-semibold text-neutral-300 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/10 backdrop-blur-md cursor-pointer pr-7 leading-none"
                   >
                     <option value="obsidian">Obsidian Dark</option>
-                    <option value="emerald-tint">Emerald Glass</option>
+                    <option value="midnight">Midnight Slate</option>
+                    <option value="ocean">Ocean Dream</option>
+                    <option value="emerald">Emerald Glass</option>
+                    <option value="royal-blue">Royal Blue</option>
+                    <option value="minimal-white">Minimal White</option>
+                    <option value="luxury-black">Luxury Black</option>
+                    <option value="cyber">Cyber Neon</option>
                     <option value="neon-sunset">Neon Sunset</option>
                   </select>
                   <ChevronDown className="w-3 h-3 text-neutral-505 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -1850,6 +2785,167 @@ export default function WebsiteBuilder() {
         </div>
 
       </div>
+
+      {/* CODE DIFF MODAL */}
+      {showDiffModal && (
+        <div className="fixed inset-0 bg-[#050507]/85 backdrop-blur-md flex items-center justify-center z-50 animate-fade-in p-6">
+          <div className="w-full max-w-5xl h-[85vh] bg-[#0C0C0E]/95 border border-white/5 p-6 rounded-2xl shadow-2xl flex flex-col space-y-4 font-sans relative">
+            <div className="flex items-center justify-between border-b border-white/5 pb-3">
+              <span className="text-sm font-bold text-white uppercase tracking-wider flex items-center space-x-2">
+                <Code2 className="w-4 h-4 text-indigo-400" />
+                <span>Code Changes Diff Viewer</span>
+              </span>
+              <button
+                type="button"
+                onClick={() => setShowDiffModal(false)}
+                className="text-neutral-500 hover:text-white transition-colors cursor-pointer text-xs font-bold border-none bg-transparent"
+              >
+                Close
+              </button>
+            </div>
+
+            <div className="flex-1 grid grid-cols-2 gap-6 overflow-hidden">
+              <div className="flex flex-col h-full overflow-hidden">
+                <span className="text-[10px] font-bold text-neutral-450 uppercase mb-2">Original State</span>
+                <pre className="flex-1 p-4 bg-[#050507] border border-white/5 rounded-xl text-xs text-neutral-400 overflow-auto font-mono whitespace-pre-wrap">
+                  {diffOriginalText || 'No original source state recorded yet.'}
+                </pre>
+              </div>
+
+              <div className="flex flex-col h-full overflow-hidden">
+                <span className="text-[10px] font-bold text-indigo-400 uppercase mb-2">Modified State</span>
+                <pre className="flex-1 p-4 bg-[#050507] border border-white/5 rounded-xl text-xs text-indigo-200 overflow-auto font-mono whitespace-pre-wrap">
+                  {diffModifiedText || 'No changes made.'}
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* DEPLOYMENT MODAL */}
+      {showDeployModal && (
+        <div className="fixed inset-0 bg-[#050507]/80 backdrop-blur-md flex items-center justify-center z-50 animate-fade-in">
+          <div className="w-full max-w-md bg-[#0C0C0E]/90 border border-white/5 p-6 rounded-2xl shadow-2xl space-y-4 font-sans relative">
+            <div className="flex items-center justify-between border-b border-white/5 pb-3">
+              <span className="text-sm font-bold text-white uppercase tracking-wider flex items-center space-x-2">
+                <Globe className="w-4 h-4 text-indigo-400" />
+                <span>One-Click Deploy</span>
+              </span>
+              <button
+                onClick={() => {
+                  setShowDeployModal(false);
+                  setDeployError(null);
+                  setDeployedLocalUrl('');
+                  setDeployedLiveUrl('');
+                }}
+                className="text-neutral-500 hover:text-white transition-colors cursor-pointer text-xs font-bold border-none bg-transparent"
+              >
+                Close
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            {!deployedLocalUrl && !deployedLiveUrl && (
+              <div className="space-y-4">
+                <p className="text-xs text-neutral-400 leading-relaxed">
+                  Generate a standalone public URL for your site! By default, the builder hosts it in a local public sandbox.
+                </p>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold text-neutral-450 uppercase block">Netlify Token (Optional)</label>
+                  <input
+                    type="password"
+                    value={netlifyToken}
+                    onChange={(e) => setNetlifyToken(e.target.value)}
+                    placeholder="Enter Netlify Personal Access Token"
+                    className="w-full rounded-xl bg-[#050507] border border-white/5 p-3 text-xs text-slate-200 placeholder-neutral-700 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/10 transition-all font-sans"
+                  />
+                  <span className="text-[9px] text-neutral-555 block">
+                    If supplied, we will deploy directly to a production server on your Netlify account.
+                  </span>
+                </div>
+
+                {deployError && (
+                  <div className="p-3 bg-red-950/20 border border-red-500/20 rounded-xl text-[10px] text-red-400 leading-relaxed font-mono">
+                    {deployError}
+                  </div>
+                )}
+
+                <button
+                  onClick={handleDeploy}
+                  disabled={isDeploying}
+                  className="w-full py-3 rounded-xl bg-indigo-650 hover:bg-indigo-500 text-white font-bold text-xs flex items-center justify-center space-x-2 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed shadow-lg border-none"
+                >
+                  {isDeploying ? (
+                    <>
+                      <svg className="animate-spin h-3.5 w-3.5 text-white" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      <span>Deploying site assets...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="w-3.5 h-3.5" />
+                      <span>Start Deployment</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            )}
+
+            {/* Success State */}
+            {(deployedLocalUrl || deployedLiveUrl) && (
+              <div className="space-y-4 py-2 text-center">
+                <div className="mx-auto w-12 h-12 bg-emerald-950/30 border border-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center">
+                  <Check className="w-6 h-6" />
+                </div>
+                <div className="space-y-1">
+                  <h4 className="text-sm font-bold text-white">Deployment Successful!</h4>
+                  <p className="text-xs text-neutral-450">
+                    Your layout resources have been compiled and hosted.
+                  </p>
+                </div>
+
+                <div className="space-y-2 pt-2 text-left">
+                  {deployedLiveUrl && (
+                    <div className="space-y-1">
+                      <span className="text-[9px] font-bold text-purple-400 uppercase block tracking-wider">Production Link (Netlify)</span>
+                      <a
+                        href={deployedLiveUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-xs text-neutral-200 hover:text-white font-mono font-medium block truncate p-3 bg-[#050507] border border-white/5 rounded-xl transition-all"
+                      >
+                        {deployedLiveUrl}
+                      </a>
+                    </div>
+                  )}
+
+                  {deployedLocalUrl && (
+                    <div className="space-y-1">
+                      <span className="text-[9px] font-bold text-emerald-400 uppercase block tracking-wider">Local Sandbox Link</span>
+                      <a
+                        href={deployedLocalUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-xs text-neutral-200 hover:text-white font-mono font-medium block truncate p-3 bg-[#050507] border border-white/5 rounded-xl transition-all"
+                      >
+                        {window.location.origin + deployedLocalUrl}
+                      </a>
+                    </div>
+                  )}
+                </div>
+
+                <p className="text-[10px] text-neutral-550 leading-relaxed">
+                  Tip: Share the local link with other devices on your same Wi-Fi network!
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

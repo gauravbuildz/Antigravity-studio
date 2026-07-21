@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { users } from '@/lib/db';
+import { prisma } from '@/lib/prisma';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': 'http://localhost:3001',
@@ -24,7 +24,9 @@ export async function POST(req: Request) {
       );
     }
 
-    const user = users.find((u) => u.email === email.toLowerCase().trim());
+    const user = await prisma.user.findUnique({
+      where: { email: email.toLowerCase().trim() }
+    });
     if (!user) {
       return NextResponse.json(
         { error: 'Invalid email or password' },

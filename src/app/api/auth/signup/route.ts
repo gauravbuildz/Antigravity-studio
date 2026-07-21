@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
-import { users } from '@/lib/db';
+import { prisma } from '@/lib/prisma';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': 'http://localhost:3001',
@@ -23,7 +23,10 @@ export async function POST(req: Request) {
       );
     }
 
-    const existingUser = users.find((u) => u.email === email.toLowerCase().trim());
+    const emailNormalized = email.toLowerCase().trim();
+    const existingUser = await prisma.user.findUnique({
+      where: { email: emailNormalized }
+    });
     if (existingUser) {
       return NextResponse.json(
         { error: 'User already exists' },
@@ -32,13 +35,12 @@ export async function POST(req: Request) {
     }
 
     const passwordHash = await bcrypt.hash(password, 10);
-    const newUser = {
-      id: Math.random().toString(36).substring(2, 9),
-      email: email.toLowerCase().trim(),
-      passwordHash,
-    };
-
-    users.push(newUser);
+    const newUser = await prisma.user.create({
+      data: {
+        email: emailNormalized,
+        passwordHash,
+      }
+    });
 
     return NextResponse.json(
       { message: 'User created successfully', userId: newUser.id },
