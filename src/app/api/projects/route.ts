@@ -1,7 +1,16 @@
 import { NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 import { prisma } from '@/lib/prisma';
-import { Project } from '@prisma/client';
+
+interface ProjectModel {
+  id: string;
+  title: string;
+  prompt: string;
+  pages: string;
+  chatHistory: string;
+  timestamp: Date;
+  userId: string;
+}
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': 'http://localhost:3001',
@@ -47,7 +56,7 @@ export async function GET(req: Request) {
     });
 
     // Map projects to format expected by UI
-    const mappedProjects = projects.map((p: Project) => {
+    const mappedProjects = projects.map((p: ProjectModel) => {
       const parsedPages = JSON.parse(p.pages || '[]');
       return {
         id: p.id,
